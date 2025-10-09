@@ -17,7 +17,7 @@
       </p>
     </header>
 
-    <!-- USP (배지 라벨 + 카드) -->
+    <!-- USP -->
     <section class="usp">
       <div class="chip-info filled">
         <span class="chip-badge">매월 1회</span>
@@ -55,28 +55,45 @@
         <p class="error" id="err_email"></p>
       </div>
 
-      <fieldset class="field">
-        <legend>관심 국가 (중복 선택 가능)</legend>
+      <!-- 관심 국가 (반응형: 데스크톱=멀티 셀렉트, 모바일=모달 피커) -->
+      <div class="field">
+        <label class="legend">관심 국가 (중복 선택 가능)</label>
 
-        <!-- 다중 선택 Chip 버튼 -->
-        <div class="chips" id="countries_chips" role="group" aria-label="관심 국가">
-          <button type="button" class="chip-opt" data-value="멕시코" aria-pressed="false">멕시코</button>
-          <button type="button" class="chip-opt" data-value="브라질" aria-pressed="false">브라질</button>
-          <button type="button" class="chip-opt" data-value="칠레" aria-pressed="false">칠레</button>
-          <button type="button" class="chip-opt" data-value="콜롬비아" aria-pressed="false">콜롬비아</button>
-          <button type="button" class="chip-opt" data-value="아르헨티나" aria-pressed="false">아르헨티나</button>
+        <!-- 데스크톱 전용 멀티 드롭다운 -->
+        <select id="countries_select" multiple size="8" class="select-multi desktop-only" aria-label="관심 국가">
+          <!-- 옵션은 app.js에서 주입 -->
+        </select>
 
-          <!-- 기타 -->
-          <button type="button" id="chip_other" class="chip-opt" data-value="기타" aria-pressed="false">기타</button>
+        <!-- 모바일 전용: 모달 오프너 -->
+        <button type="button" id="countries_open" class="picker-btn mobile-only" aria-haspopup="dialog" aria-controls="countries_modal">
+          관심 국가 선택하기 <span id="countries_badge" class="badge">0</span>
+        </button>
+
+        <!-- 모바일 모달 -->
+        <div id="countries_modal" class="modal hide" role="dialog" aria-modal="true" aria-labelledby="countries_title">
+          <div class="modal-backdrop" data-close></div>
+          <div class="modal-panel">
+            <div class="modal-head">
+              <h2 id="countries_title">관심 국가 선택</h2>
+              <button type="button" class="modal-close" data-close aria-label="닫기">×</button>
+            </div>
+            <div class="modal-body">
+              <div id="countries_checks" class="checks-col">
+                <!-- 체크박스는 app.js에서 주입 -->
+              </div>
+              <div class="other-wrap">
+                <label for="country_other" class="sr-only">기타 국가</label>
+                <input type="text" id="country_other" class="other-input"
+                       placeholder="관심 국가를 입력해 주세요." aria-label="관심 국가 기타 입력" />
+              </div>
+            </div>
+            <div class="modal-foot">
+              <button type="button" id="countries_clear" class="btn ghost">초기화</button>
+              <button type="button" id="countries_apply" class="btn primary sm">선택 완료</button>
+            </div>
+          </div>
         </div>
-
-        <!-- 기타 입력창 (기타 선택 시 노출) -->
-        <div id="other_wrap" class="other-wrap hide">
-          <label for="country_other" class="sr-only">기타 국가</label>
-          <input type="text" id="country_other" class="other-input"
-                 placeholder="예: 페루, 우루과이 등을 입력해 주세요." aria-label="관심 국가 기타 입력" />
-        </div>
-      </fieldset>
+      </div>
 
       <input type="hidden" name="source" value="github-pages" />
 
@@ -97,6 +114,6 @@
     window.OPPA_NEWSLETTER_ENDPOINT =
       "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun/exec";
   </script>
-  <script src="./assets/app.js?v=20251009-3"></script>
+  <script src="./assets/app.js?v=20251009-5"></script>
 </body>
 </html>
