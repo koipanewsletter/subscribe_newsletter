@@ -5,19 +5,17 @@
 * { box-sizing:border-box; }
 body { margin:0; background:var(--bg); color:var(--text); font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 .container { max-width:560px; margin:56px auto; padding:0 16px; }
-h1 { text-align:center; font-size:22px; margin:0 0 8px; }
+h1 { text-align:center; font-size:22px; margin:0 0 6px; }
 .subtitle, .tagline { text-align:center; color:var(--muted); margin:0; }
-.tagline { margin-bottom:20px; }
-
-.intro, .notice { text-align:center; color:#495057; font-size:14px; margin:16px 0 24px; }
-
+.tagline { margin-bottom:18px; }
+.intro, .notice { text-align:center; color:#495057; font-size:14px; margin:14px 0 22px; }
 .card { background:var(--card); border-radius:var(--radius); padding:20px; box-shadow:0 6px 18px rgba(0,0,0,.06); }
 
 form label { display:block; font-size:14px; margin:10px 0; }
 input[type="text"], input[type="email"] {
   width:100%; padding:12px; border:1px solid #dee2e6; border-radius:10px; background:#fff;
 }
-.checks { border:0; padding:0; margin:10px 0; }
+.checks { border:0; padding:0; margin:8px 0; }
 .checks label { display:inline-flex; align-items:center; gap:6px; margin:6px 10px 0 0; }
 .consent { display:flex; align-items:center; gap:8px; font-size:13px; margin-top:6px; }
 
