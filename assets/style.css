@@ -2,19 +2,14 @@
 *{box-sizing:border-box} html,body{height:100%}
 :root{
   --bg:#f7f9fc; --text:#1e2a36; --muted:#5b6b7d;
-  --brand:#5CA1D1;
-  --brand-weak:#ebf6fb; --brand-border:#cfe9f6;
+  --brand:#5CA1D1; --brand-weak:#ebf6fb; --brand-border:#cfe9f6;
   --card:#fff; --card-border:#dde5ef; --input-bg:#f9fbff; --input-border:#cfd9e6;
   --ok:#16a34a; --err:#d6263c;
   --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px;
   --r1:10px; --r2:12px; --r3:18px;
   --fs0:12px; --fs1:14px; --fs2:16px; --fs3:18px; --fs4:28px;
 }
-body{
-  margin:0;
-  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
-  color:var(--text);background:var(--bg);line-height:1.55;
-}
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:var(--text);background:var(--bg);line-height:1.55}
 
 /* Layout */
 .wrap{max-width:720px;margin:36px auto;padding:0 18px}
@@ -22,7 +17,7 @@ body{
 .page-head h1{margin:0 0 var(--s1);font-size:var(--fs4);font-weight:800}
 .lead{margin:0;color:var(--muted);font-size:var(--fs2)}
 
-/* USP */
+/* USP (리뉴얼) */
 .usp2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 12px}
 @media(max-width:640px){.usp2{grid-template-columns:1fr}}
 .usp-card{border-radius:16px;padding:14px 16px}
@@ -39,8 +34,7 @@ label,.legend{display:block;font-weight:700;margin:0 0 var(--s1)}
 .req{color:var(--brand)}
 input[type="text"],input[type="email"]{
   width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--input-border);
-  background:var(--input-bg);font-size:var(--fs2);outline:none;
-  transition:border .15s,box-shadow .15s,background .15s;
+  background:var(--input-bg);font-size:var(--fs2);outline:none;transition:border .15s,box-shadow .15s,background .15s;
 }
 input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(92,161,209,.18)}
 .error{min-height:16px;margin:6px 2px 0;font-size:var(--fs0);color:var(--err)}
@@ -54,47 +48,44 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 .chip-opt:hover{background:#f5f9ff}
 .chip-opt[aria-pressed="true"]{background:#eaf5fb;box-shadow:0 0 0 1px var(--brand-border);color:#196088}
-.chip-more{background:#f0f4f8;border:1px dashed #d2deea;color:#3a506b}
+
+/* ▶ 더보기 칩: 점선 → 솔리드(연한 테두리) */
+.chip-more{
+  background:#f4f7fb;
+  border:1px solid #cfd9e6;   /* ← dashed 제거 */
+  color:#3a506b;
+}
 .chip-more:hover{background:#e9f2f8}
-.chip-other{background:#f4fbff;border:1px solid #cfe9f6;color:#185b7f}
 
 /* 기타 인라인 입력 (칩 자리에 변신) */
 .chip-inline-wrap{
-  display:inline-flex;align-items:center;
-  height:32px;border-radius:999px;
-  border:1px solid var(--brand-border);
-  background:#f4fbff;padding:3px 6px 3px 10px;gap:6px;
-  max-width:230px; /* input이 칩 폭을 넘지 않도록 제한 */
+  display:inline-flex;align-items:center;height:32px;border-radius:999px;border:1px solid var(--brand-border);
+  background:#f4fbff;padding:3px 6px 3px 10px;gap:6px;max-width:230px;
 }
 .chip-inline-wrap input{
-  border:0;background:transparent;outline:none;font-size:var(--fs1);
-  min-width:80px;max-width:150px;flex:1;
+  border:0;background:transparent;outline:none;font-size:var(--fs1);min-width:80px;max-width:150px;flex:1;
 }
-.chip-inline-wrap input:focus{
-  border:none;outline:none;box-shadow:none; /* 포커스 효과 제한 */
-}
+.chip-inline-wrap input:focus{border:none;outline:none;box-shadow:none}
 .chip-inline-wrap input::placeholder{color:#9eb8c8}
 .chip-inline-wrap .chip-clear{
-  border:0;background:#d6edf7;border-radius:999px;width:22px;height:22px;
-  cursor:pointer;color:#124d6a;font-weight:900;line-height:22px;
+  border:0;background:#d6edf7;border-radius:999px;width:22px;height:22px;cursor:pointer;color:#124d6a;font-weight:900;line-height:22px
 }
 
-/* Buttons */
+/* Buttons & status */
 .primary{width:100%;margin-top:var(--s2);padding:14px 16px;font-size:var(--fs2);font-weight:800;border:0;border-radius:12px;cursor:pointer;background:var(--brand);color:#fff;transition:transform .05s,opacity .2s}
 .primary:disabled{opacity:.6;cursor:not-allowed}.primary:active{transform:translateY(1px)}
 .status{min-height:22px;margin:var(--s2) 2px 0;font-size:var(--fs1);color:#64748b}
 .status.ok{color:var(--ok)} .status.err{color:var(--err)}
 
-/* Footer */
-.page-foot{margin-top:16px;font-size:var(--fs1);line-height:1.4;color:#64748b;}
-.page-foot .privacy{margin:0 0 4px;}
-.page-foot small{display:block;margin-top:2px;}
+/* ▶ Footer 레이아웃 업데이트 */
+.page-foot{margin-top:16px;color:#64748b}
+.page-foot .privacy{margin:0 0 8px;font-size:var(--fs1);line-height:1.45}
+.foot-row{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.foot-row .contact,.foot-row .copy{font-size:var(--fs1)}   /* 같은 글자 크기 */
 @media(min-width:768px){
-  .page-foot{display:flex;justify-content:space-between;align-items:center;text-align:left;}
-  .page-foot .privacy{margin:0;}
-  .page-foot small{margin:0;}
+  .foot-row{flex-direction:row;justify-content:space-between;align-items:center}
 }
-.page-foot{margin-bottom:20px;} /* 아래 살짝 여백 */
+.page-foot{margin-bottom:20px}
 
 /* Receipt */
 .receipt{border-style:dashed;border-color:#93c5fd;background:#f8fbff}
