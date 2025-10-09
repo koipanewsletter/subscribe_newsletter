@@ -7,13 +7,10 @@
   <link rel="stylesheet" href="./assets/style.css" />
   <meta name="robots" content="noindex">
   <script>
-    // ✅ 가드: 직접 접근 시 index.html로 리다이렉트
     (function(){
       const ok = sessionStorage.getItem("oppa_newsletter_ok");
       const data = sessionStorage.getItem("oppa_newsletter_last");
-      if (ok !== "1" || !data) {
-        location.replace("./index.html");
-      }
+      if (ok !== "1" || !data) location.replace("./index.html");
     })();
   </script>
 </head>
@@ -23,7 +20,7 @@
       <h1>『요즘 중남미 IP』 구독 완료</h1>
     </header>
 
-    <section class="card receipt" id="receipt">
+    <section class="card receipt">
       <dl class="kv">
         <div><dt>이름</dt><dd id="r_name">-</dd></div>
         <div><dt>소속</dt><dd id="r_company">-</dd></div>
@@ -35,7 +32,7 @@
     <footer class="page-foot">
       <p class="privacy">
         본 구독 신청은 뉴스레터 발송을 위한 최소한의 정보만 수집하며 언제든지 수신 거부가 가능합니다.<br />
-        문의 : <a href="mailto:mexicocity_ipcenter@koipa.re.kr">mexicocity_ipcenter@koipa.re.kr</a>
+        문의 : mexicocity_ipcenter@koipa.re.kr
       </p>
       <small>© 2025 KOIPA Mexico City IP Center</small>
     </footer>
@@ -51,8 +48,6 @@
       $("r_countries").textContent = data.countries.join(", ");
       document.getElementById("r_countries_block").classList.remove("hide");
     }
-
-    // ✅ 1회용: 표시 후 즉시 제거
     sessionStorage.removeItem("oppa_newsletter_ok");
     sessionStorage.removeItem("oppa_newsletter_last");
   </script>
