@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>『요즘 중남미 IP』 구독 완료</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
@@ -10,25 +10,29 @@
   <main class="container">
     <h1>『요즘 중남미 IP』 구독 완료</h1>
 
-    <div class="result-card" id="resultBox">
-      <p><strong>이름:</strong> <span id="rName"></span></p>
-      <p><strong>소속:</strong> <span id="rCompany"></span></p>
-      <p><strong>이메일:</strong> <span id="rEmail"></span></p>
-    </div>
+    <section class="card">
+      <p><strong>이름</strong> <span id="rName"></span></p>
+      <p><strong>소속</strong> <span id="rCompany"></span></p>
+      <p><strong>이메일</strong> <span id="rEmail"></span></p>
+      <p><strong>관심국가</strong> <span id="rInterests"></span></p>
+    </section>
 
-    <footer>
-      <p>본 뉴스레터는 비상업적 목적으로 운영되며, 언제든지 구독 해지가 가능합니다.<br />
-      문의: <a href="mailto:neotoday.center@gmail.com">neotoday.center@gmail.com</a></p>
-      <p>© 2025 Mondo City IP Center</p>
-    </footer>
+    <section class="notice">
+      <p>본 구독 신청은 뉴스레터 발송을 위한 최소한의 정보만 수집하며,<br>
+      언제든지 수신 거부 가능합니다.<br>
+      문의: <a href="mailto:mexicocity_ipcenter@koipa.re.kr">mexicocity_ipcenter@koipa.re.kr</a></p>
+    </section>
+
+    <footer>© 2025 KOIPA Mexico City IP Center</footer>
   </main>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById('rName').textContent = params.get('name') || '';
-    document.getElementById('rCompany').textContent = params.get('company') || '';
-    document.getElementById('rEmail').textContent = params.get('email') || '';
+    const p = new URLSearchParams(location.search);
+    document.getElementById('rName').textContent = p.get('name') || '';
+    document.getElementById('rCompany').textContent = p.get('company') || '';
+    document.getElementById('rEmail').textContent = p.get('email') || '';
+    const interests = p.getAll('interests');
+    document.getElementById('rInterests').textContent = interests.length ? interests.join(', ') : '-';
   </script>
 </body>
 </html>
-
