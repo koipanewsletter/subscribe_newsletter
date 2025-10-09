@@ -6,8 +6,8 @@ html, body { height: 100%; }
   --text:#1e2a36;
   --muted:#5b6b7d;
   --brand:#2563eb;
-  --brand-weak:#eef5ff;
-  --brand-border:#d8e6ff;
+  --brand-weak:#f0f6ff;
+  --brand-border:#cfe0ff;
   --card:#fff;
   --card-border:#dde5ef;
   --input-bg:#f9fbff;
@@ -46,22 +46,34 @@ body {
 .page-head h1 { margin: 0 0 var(--space-1); font-size: var(--fs-4); font-weight: 800; }
 .lead { margin: 0; color: var(--muted); line-height: 1.6; font-size: var(--fs-2); }
 
+/* === USP 영역 (매월 1회 / 구독 동의) === */
 .usp {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2);
-  margin: var(--space-2) 0 var(--space-2);
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 22px 0;
+  flex-wrap: wrap;
 }
-@media (max-width: 680px) { .usp { grid-template-columns: 1fr; } }
-
 .chip {
+  flex: 1 1 320px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   background: var(--brand-weak);
   border: 1px solid var(--brand-border);
-  border-radius: var(--radius-2);
-  padding: var(--space-3) var(--space-3);
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: var(--muted);
+  line-height: 1.5;
 }
-.chip b { display: inline-block; margin-right: 8px; color: #175cd3; }
-.chip span { color: #39526b; }
+.chip b {
+  color: var(--brand);
+  font-weight: 700;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .chip { flex: 1 1 100%; }
+}
 
 /* Card / Form */
 .card {
@@ -88,14 +100,25 @@ input[type="text"], input[type="email"], .other-input {
 }
 input:focus, .other-input:focus { border-color: var(--brand); background: #fff; }
 
-.checks { display: flex; flex-wrap: wrap; gap: 10px 16px; }
-.checks label { font-weight: 500; display:flex; align-items:center; gap:8px; }
-
-.other-wrap { gap: 8px; flex: 1 1 100%; }
-.other-input {
-  margin-left: 28px; /* 체크박스 공간만큼 들여쓰기 */
-  margin-top: 6px;
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: flex-start;
 }
+.checks label { font-weight: 500; display:inline-flex; align-items:center; gap:6px; }
+
+.other-wrap {
+  flex: 1 1 100%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.other-input {
+  width: 100%;
+  margin-top: 8px;
+  margin-left: 0;
+}
+.other-input.hide { display: none; }
 
 .primary {
   width: 100%; margin-top: var(--space-2);
@@ -112,23 +135,27 @@ input:focus, .other-input:focus { border-color: var(--brand); background: #fff; 
 .status.err { color: var(--err); }
 
 /* Footer */
-.page-foot { text-align: center; margin-top: var(--space-2); color: #64748b; font-size: var(--fs-1); }
+.page-foot {
+  text-align: center;
+  margin-top: 8px;   /* 좁힘 */
+  color: #64748b;
+  font-size: var(--fs-1);
+  line-height: 1.4;
+}
 .page-foot a { color: var(--brand); }
 
-/* Success receipt (도트 라인 박스 느낌) */
-.receipt {
-  border-style: dashed; border-color: #93c5fd; background: #f8fbff;
-}
+/* Success receipt */
+.receipt { border-style: dashed; border-color: #93c5fd; background: #f8fbff; }
 .kv { margin: 0; }
 .kv div { display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 8px 4px; }
 .kv dt { color: #475569; font-weight: 700; }
 .kv dd { margin: 0; color: #0f172a; }
 .hide { display: none; }
 
-/* Honeypot (봇 방지) */
+/* Honeypot */
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-/* --- Responsive tweaks --- */
+/* Responsive tweaks */
 @media (max-width: 480px){
   .wrap { margin: 32px auto; padding: 0 16px; }
   .page-head h1 { font-size: 22px; }
