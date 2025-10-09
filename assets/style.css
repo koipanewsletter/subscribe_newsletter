@@ -92,35 +92,55 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 
 /* =========================
    기타 인라인 입력(칩 자리 변신)
-   - placeholder가 안 짤리도록 폭/플로우 개선
-   - 모바일 포커스 확대 방지(16px)
    ========================= */
 .chip-inline-wrap{
-  display:inline-flex;align-items:center;
-  height:34px;border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  height:34px;
+  border-radius:999px;
   border:1px solid var(--brand-border);
   background:#f4fbff;
-  padding:4px 6px 4px 10px;gap:6px;
-  max-width:min(360px,85vw);     /* 칩 폭 유연 확장 */
+  padding:4px 6px 4px 10px;
+  gap:6px;
+  max-width:min(360px,85vw);
 }
+
 .chip-inline-wrap input{
-  border:0;background:transparent;outline:none;
-  font-size:var(--fs2);           /* 16px → 모바일 자동줌 방지 */
+  border:0;
+  background:transparent;
+  outline:none;
+  font-size:var(--fs1);           /* placeholder와 동일한 크기 (14px) */
   line-height:1.2;
   min-width:120px;
-  max-width:none;                 /* 말림 제거 */
-  flex:1;                         /* 남는 폭 활용 */
+  flex:1;
 }
+
 .chip-inline-wrap input::placeholder{
   color:#9eb8c8;
-  white-space:nowrap;             /* 줄바꿈 금지 */
+  font-size:var(--fs1);           /* placeholder 축소 (14px) */
+  white-space:nowrap;
   overflow:hidden;
-  text-overflow:ellipsis;         /* 길면 … 처리 */
+  text-overflow:ellipsis;
 }
-.chip-inline-wrap input:focus{border:none;outline:none;box-shadow:none}
+
+.chip-inline-wrap input:focus{
+  border:none;
+  outline:none;
+  box-shadow:none;
+}
+
+/* X 버튼 */
 .chip-inline-wrap .chip-clear{
-  border:0;background:#d6edf7;border-radius:999px;width:22px;height:22px;
-  cursor:pointer;color:#124d6a;font-weight:900;line-height:22px
+  border:0;
+  background:#d6edf7;
+  border-radius:999px;
+  width:22px;
+  height:22px;
+  cursor:pointer;
+  color:#124d6a;
+  font-weight:900;
+  line-height:22px;
+  padding:0;                      /* ✅ 패딩 0으로 정렬 개선 */
 }
 
 /* =========================
@@ -146,7 +166,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 @media(min-width:768px){
   .foot-row{flex-direction:row;justify-content:space-between;align-items:center}
 }
-.page-foot{margin-bottom:36px}   /* ← 맨 아래 여백 확대 */
+.page-foot{margin-bottom:36px}   /* 하단 여백 확대 */
 
 /* =========================
    Success Receipt (success.html)
