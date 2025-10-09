@@ -13,43 +13,36 @@ const clearErrors = () => { errName.textContent=""; errCompany.textContent=""; e
 
 // 칩 렌더 타깃
 const chipsWrap = document.getElementById("countries_chips");
-const otherPill = document.getElementById("chip_other_input");
-const otherInput = document.getElementById("country_other");
-const otherClear = document.getElementById("chip_other_clear");
 
-// 중남미 전체(32개국) — 한글 표기
+// LATAM(‘기타’ 포함, 원하는 위치에 배치)
 const LATAM = [
   "멕시코","과테말라","온두라스","엘살바도르","니카라과","코스타리카","파나마",
   "쿠바","도미니카공화국","아이티","자메이카","바베이도스","바하마","그레나다",
   "세인트루시아","세인트빈센트그레나딘","세인트키츠네비스","앤티가바부다","도미니카연방",
   "벨리즈",
   "콜롬비아","베네수엘라","에콰도르","페루","볼리비아","칠레","아르헨티나","파라과이","우루과이","브라질",
-  "가이아나","수리남"
+  "가이아나","수리남",
+  "기타" // ← 이 칩이 클릭되면 그 자리에서 input으로 변신
 ];
 
 // 초기 한 화면 수납 + 점진적 더보기
-const CHIP_CHUNK = 10; // 처음/추가 표시 개수
+const CHIP_CHUNK = 10;
 let shownCount = 0;
-const selectedSet = new Set(); // 선택 상태 유지
+const selectedSet = new Set();
 
-function renderNextChunk(){
-  const rest = LATAM.slice(shownCount, shownCount + CHIP_CHUNK);
-  rest.forEach(name => chipsWrap.appendChild(makeChip(name, selectedSet.has(name))));
-  shownCount += rest.length;
-
-  // 더보기 버튼 업데이트/삽입
-  updateMoreChip();
-}
+let moreBtn = null;
 
 function makeChip(name, selected=false){
   const btn = document.createElement("button");
   btn.type = "button";
-  btn.className = "chip-opt";
+  btn.className = "chip-opt" + (name==="기타" ? " chip-other" : "");
   btn.dataset.value = name;
   btn.setAttribute("aria-pressed", selected ? "true" : "false");
   btn.textContent = name;
 
   btn.addEventListener("click", ()=>{
+    if (name === "기타") return transformOther(btn); // 변신
+
     const now = btn.getAttribute("aria-pressed")==="true";
     btn.setAttribute("aria-pressed", (!now).toString());
     if (now){ selectedSet.delete(name); }
@@ -59,64 +52,80 @@ function makeChip(name, selected=false){
   return btn;
 }
 
-let moreBtn = null;
-function updateMoreChip(){
-  const total = LATAM.length;
-  // 더보기 칩 생성/갱신
+function transformOther(otherBtn){
+  // 이미 변신 상태면 무시
+  if (otherBtn.__replaced) return;
+
+  const wrap = document.createElement("span");
+  wrap.className = "chip-inline-wrap";
+  // 입력
+  const input = document.createElement("input");
+  input.type = "text";
+  input.placeholder = "관심 국가를 입력해 주세요.";
+  input.setAttribute("aria-label","기타 국가 입력");
+  // X 버튼
+  const x = document.createElement("button");
+  x.type = "button";
+  x.className = "chip-clear";
+  x.textContent = "×";
+
+  wrap.appendChild(input);
+  wrap.appendChild(x);
+
+  // DOM 교체 (같은 위치 유지)
+  const parent = otherBtn.parentNode;
+  parent.insertBefore(wrap, otherBtn);
+  parent.removeChild(otherBtn);
+  otherBtn.__replaced = true; // 플래그
+  wrap.__origChip = otherBtn; // 복원용
+  input.focus();
+
+  // 복원 로직
+  x.addEventListener("click", ()=>{
+    // 값이 있어도 전송 요구 없음 → 단순 복구
+    parent.insertBefore(otherBtn, wrap);
+    parent.removeChild(wrap);
+    otherBtn.__replaced = false;
+  });
+}
+
+function ensureMoreAtEnd(){
   if (!moreBtn){
     moreBtn = document.createElement("button");
     moreBtn.type = "button";
     moreBtn.className = "chip-opt chip-more";
-    chipsWrap.appendChild(moreBtn);
-    moreBtn.addEventListener("click", ()=>{
-      // 다음 청크 렌더
-      // 더 이상 없으면 버튼 제거
-      const before = shownCount;
-      renderNextChunk();
-      if (shownCount >= total){
-        moreBtn.remove();
-        moreBtn = null;
-        // ‘기타’ 칩 붙이기
-        ensureOtherChip();
-      }
-    });
+    moreBtn.addEventListener("click", renderNextChunk);
   }
-  moreBtn.textContent = `더보기 (${Math.min(shownCount,total)}/${total})`;
-
-  // 모든 칩을 다 보여줬다면 제거하고 기타 칩 노출
-  if (shownCount >= total){
-    moreBtn.remove();
-    moreBtn = null;
-    ensureOtherChip();
-  }
+  // 항상 맨 끝에 배치
+  moreBtn.textContent = `더보기 (${Math.min(shownCount, LATAM.length)}/${LATAM.length})`;
+  chipsWrap.appendChild(moreBtn);
 }
 
-let otherChip = null;
-function ensureOtherChip(){
-  if (otherChip) return;
-  otherChip = document.createElement("button");
-  otherChip.type = "button";
-  otherChip.className = "chip-opt chip-other";
-  otherChip.textContent = "기타";
-  otherChip.addEventListener("click", ()=>{
-    otherPill.classList.toggle("hide");
-    if (!otherPill.classList.contains("hide")) otherInput.focus();
-    else otherInput.value = "";
-  });
-  chipsWrap.appendChild(otherChip);
+function renderNextChunk(){
+  const end = Math.min(shownCount + CHIP_CHUNK, LATAM.length);
+  for (let i = shownCount; i < end; i++){
+    // 더보기 버튼 앞에 칩을 삽입하여 항상 more가 끝으로
+    const chip = makeChip(LATAM[i], selectedSet.has(LATAM[i]));
+    chipsWrap.insertBefore(chip, moreBtn || null);
+  }
+  shownCount = end;
+
+  if (shownCount >= LATAM.length){
+    // 모두 노출되면 more 제거
+    moreBtn?.remove();
+    moreBtn = null;
+  } else {
+    ensureMoreAtEnd();
+  }
 }
 
 function bootstrapChips(){
   chipsWrap.innerHTML = "";
   shownCount = 0;
-  renderNextChunk(); // 처음 CHUNK개
+  ensureMoreAtEnd();
+  renderNextChunk(); // 첫 청크
 }
 bootstrapChips();
-
-otherClear?.addEventListener("click", ()=>{
-  otherInput.value = "";
-  otherPill.classList.add("hide");
-});
 
 // helpers
 function setLoading(on){ submitBtn.disabled=on; submitBtn.textContent=on?"전송 중...":"구독하기"; }
@@ -142,16 +151,20 @@ if (form){
     else if (!isValidEmail(email)){ errEmail.textContent="올바른 이메일 주소를 입력해 주세요."; firstInvalid ??= form.email; }
     if (firstInvalid){ firstInvalid.focus(); firstInvalid.scrollIntoView({behavior:"smooth",block:"center"}); return; }
 
-    // 국가 선택 수집
+    // 선택된 칩 수집
     const selected = Array.from(chipsWrap.querySelectorAll('.chip-opt[aria-pressed="true"]'))
       .map(btn => btn.dataset.value);
-    if (!otherPill.classList.contains("hide") && otherInput.value.trim()){
-      selected.push(otherInput.value.trim());
+
+    // ‘기타’ 인라인 입력 값이 있다면 추가
+    const inline = chipsWrap.querySelector('.chip-inline-wrap input');
+    if (inline && inline.value.trim()){
+      selected.push(inline.value.trim());
     }
+
     const countriesStr = selected.join(", ");
     const receipt = { name, company, email, countries: selected };
 
-    const payload = new URLSearchParams({ name, company, email, source: "github-pages", countries: countriesStr });
+    const payload = new URLSearchParams({ name, company, email, source:"github-pages", countries: countriesStr });
 
     try{
       setLoading(true);
