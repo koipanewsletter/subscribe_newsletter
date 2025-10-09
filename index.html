@@ -1,10 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <title>여기에는 문서의 제목을 입력해주세요</title>
-  </head>
-  <body>
-    여기에 웹페이지에 표시할 콘텐츠(태그)를 입력해주세요
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>『요즘 중남미 IP』 구독 신청</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>『요즘 중남미 IP』 구독 신청</h1>
+
+    <p class="desc">중남미 IP 트렌드 뉴스레터 <strong>요즘 중남미 IP</strong>를 받아보세요.</p>
+
+    <form id="subscribeForm">
+      <label>이름<input type="text" name="name" required /></label>
+      <label>소속<input type="text" name="company" required /></label>
+      <label>이메일<input type="email" name="email" required /></label>
+
+      <label class="consent">
+        <input type="checkbox" name="consent" required />
+        개인정보 수집 및 이용에 동의합니다.
+      </label>
+
+      <button type="submit" class="btn-primary">구독하기</button>
+    </form>
+
+    <footer>
+      <p>본 뉴스레터는 비상업적 목적으로 운영되며, 언제든지 구독 해지가 가능합니다.<br />
+      문의: <a href="mailto:neotoday.center@gmail.com">neotoday.center@gmail.com</a></p>
+      <p>© 2025 Mondo City IP Center</p>
+    </footer>
+  </main>
+
+  <script src="assets/script.js"></script>
+</body>
 </html>
