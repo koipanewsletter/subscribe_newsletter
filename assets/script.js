@@ -1,5 +1,5 @@
 // 배포한 Google Apps Script 웹앱 URL (/exec 필수)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyi6TzYTGX6Dz945gnLXyUIxAdSQU_jBe5Z66vhmjQQ7PZ7YjlIHNVsC13Vl8INbcyB/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwByrN2B1h4ikA4Rfaqh9RUXs_yrWvPU4MjDff2uQpmV7lExSQxm52P2LalWw-l9nM/exec";
 
 const form = document.getElementById("subscribeForm");
 const msg = document.getElementById("formMsg");
