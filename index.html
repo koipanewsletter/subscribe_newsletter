@@ -17,21 +17,21 @@
       </p>
     </header>
 
-    <!-- USP -->
+    <!-- USP (배지 라벨 + 카드) -->
     <section class="usp">
-      <div class="chip">
-        <b>매월 1회</b>
-        <span>한국 기업을 위한 중남미 주요 IP 뉴스 및 분석을 전해드립니다.</span>
+      <div class="chip-info filled">
+        <span class="chip-badge">매월 1회</span>
+        <p>한국 기업을 위한 중남미 주요 IP 뉴스 및 분석을 전해드립니다.</p>
       </div>
-      <div class="chip">
-        <b>구독 동의</b>
-        <span>최신 판례·제도 동향, 센터 소식을 이메일로 받아보실 수 있습니다.</span>
+      <div class="chip-info outlined">
+        <span class="chip-badge">구독 동의</span>
+        <p>최신 판례·제도 동향, 센터 소식을 이메일로 받아보실 수 있습니다.</p>
       </div>
     </section>
 
     <!-- 구독 폼 -->
     <form id="subscribe-form" class="card" novalidate>
-      <!-- 허니팟 -->
+      <!-- 스팸 방지: 허니팟 -->
       <div class="hp">
         <label for="company_hp">회사명(작성 금지)</label>
         <input id="company_hp" name="company_hp" type="text" autocomplete="organization" />
@@ -39,31 +39,42 @@
 
       <div class="field">
         <label for="name">이름 <span class="en">Name</span> <span class="req">*</span></label>
-        <input id="name" name="name" type="text" placeholder="예: 김IP" required />
+        <input id="name" name="name" type="text" placeholder="이름을 입력해 주세요." required />
+        <p class="error" id="err_name"></p>
       </div>
 
       <div class="field">
         <label for="company">소속 <span class="en">Company</span> <span class="req">*</span></label>
-        <input id="company" name="company" type="text" placeholder="예: 한국지식재산보호원" required />
+        <input id="company" name="company" type="text" placeholder="소속을 입력해 주세요." required />
+        <p class="error" id="err_company"></p>
       </div>
 
       <div class="field">
         <label for="email">이메일 <span class="en">Email</span> <span class="req">*</span></label>
-        <input id="email" name="email" type="email" placeholder="예: mexicocity_ipcenter@koipa.re.kr" required />
+        <input id="email" name="email" type="email" placeholder="이메일을 입력해 주세요." required />
+        <p class="error" id="err_email"></p>
       </div>
 
       <fieldset class="field">
-        <legend>관심 국가 (선택)</legend>
-        <div class="checks">
-          <label><input type="checkbox" name="countries" value="멕시코"> 멕시코</label>
-          <label><input type="checkbox" name="countries" value="브라질"> 브라질</label>
-          <label><input type="checkbox" name="countries" value="칠레"> 칠레</label>
-          <label><input type="checkbox" name="countries" value="콜롬비아"> 콜롬비아</label>
-          <label><input type="checkbox" name="countries" value="아르헨티나"> 아르헨티나</label>
-          <label class="other-wrap">
-            <span><input type="checkbox" id="country_other_chk" name="countries" value="기타"> 기타</span>
-            <input type="text" id="country_other" class="other-input hide" placeholder="예: 페루, 우루과이" aria-label="관심 국가 기타 입력" />
-          </label>
+        <legend>관심 국가 (중복 선택 가능)</legend>
+
+        <!-- 다중 선택 Chip 버튼 -->
+        <div class="chips" id="countries_chips" role="group" aria-label="관심 국가">
+          <button type="button" class="chip-opt" data-value="멕시코" aria-pressed="false">멕시코</button>
+          <button type="button" class="chip-opt" data-value="브라질" aria-pressed="false">브라질</button>
+          <button type="button" class="chip-opt" data-value="칠레" aria-pressed="false">칠레</button>
+          <button type="button" class="chip-opt" data-value="콜롬비아" aria-pressed="false">콜롬비아</button>
+          <button type="button" class="chip-opt" data-value="아르헨티나" aria-pressed="false">아르헨티나</button>
+
+          <!-- 기타 -->
+          <button type="button" id="chip_other" class="chip-opt" data-value="기타" aria-pressed="false">기타</button>
+        </div>
+
+        <!-- 기타 입력창 (기타 선택 시 노출) -->
+        <div id="other_wrap" class="other-wrap hide">
+          <label for="country_other" class="sr-only">기타 국가</label>
+          <input type="text" id="country_other" class="other-input"
+                 placeholder="예: 페루, 우루과이 등을 입력해 주세요." aria-label="관심 국가 기타 입력" />
         </div>
       </fieldset>
 
@@ -76,7 +87,7 @@
     <footer class="page-foot">
       <p class="privacy">
         본 구독 신청은 뉴스레터 발송을 위한 최소한의 정보만 수집하며 언제든지 수신 거부가 가능합니다.<br />
-        문의 : <a href="mailto:mexicocity_ipcenter@koipa.re.kr">mexicocity_ipcenter@koipa.re.kr</a>
+        문의 : mexicocity_ipcenter@koipa.re.kr
       </p>
       <small>© 2025 KOIPA Mexico City IP Center</small>
     </footer>
@@ -84,4 +95,8 @@
 
   <script>
     window.OPPA_NEWSLETTER_ENDPOINT =
-      "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun
+      "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun/exec";
+  </script>
+  <script src="./assets/app.js?v=20251009-3"></script>
+</body>
+</html>
