@@ -4,8 +4,39 @@ const ENDPOINT = window.OPPA_NEWSLETTER_ENDPOINT;
 const form = document.getElementById("subscribe-form");
 const statusEl = document.getElementById("status");
 const submitBtn = document.getElementById("submit-btn");
-const chkOther = document.getElementById("country_other_chk");
-const inputOther = document.getElementById("country_other");
+
+// 에러 표시 헬퍼
+const errName = document.getElementById("err_name");
+const errCompany = document.getElementById("err_company");
+const errEmail = document.getElementById("err_email");
+function clearErrors(){ errName.textContent=""; errCompany.textContent=""; errEmail.textContent=""; }
+function setFieldError(el, msg){ el.textContent = msg; }
+
+// 관심국가 Chip 토글
+const chipsWrap = document.getElementById("countries_chips");
+const chipOther = document.getElementById("chip_other");
+const otherWrap = document.getElementById("other_wrap");
+const otherInput = document.getElementById("country_other");
+
+if (chipsWrap) {
+  chipsWrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip-opt");
+    if (!btn) return;
+    const pressed = btn.getAttribute("aria-pressed") === "true";
+    btn.setAttribute("aria-pressed", (!pressed).toString());
+    btn.classList.toggle("selected", !pressed);
+
+    if (btn === chipOther) {
+      if (!pressed) { // 선택됨
+        otherWrap.classList.remove("hide");
+        otherInput.focus();
+      } else {
+        otherWrap.classList.add("hide");
+        otherInput.value = "";
+      }
+    }
+  });
+}
 
 function setLoading(on) {
   submitBtn.disabled = on;
@@ -19,45 +50,40 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// 기타 항목 토글
-if (chkOther && inputOther) {
-  const syncOther = () => {
-    if (chkOther.checked) {
-      inputOther.classList.remove("hide");
-      inputOther.disabled = false;
-    } else {
-      inputOther.classList.add("hide");
-      inputOther.disabled = true;
-      inputOther.value = "";
-    }
-  };
-  syncOther();
-  chkOther.addEventListener("change", syncOther);
-}
-
 if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    clearErrors();
     setStatus("", "");
 
+    // 허니팟(봇 차단)
     const hp = form.company_hp?.value?.trim();
-    if (hp) return; // 봇 필터
+    if (hp) return;
 
     const name = form.name.value.trim();
     const company = form.company.value.trim();
     const email = form.email.value.trim();
 
-    if (!name) return setStatus("err", "이름을 입력해 주세요.");
-    if (!company) return setStatus("err", "소속을 입력해 주세요.");
-    if (!email || !isValidEmail(email)) return setStatus("err", "올바른 이메일 주소를 입력해 주세요.");
+    let invalid = false;
+    if (!name) { setFieldError(errName, "이름을 입력해 주세요."); invalid = true; }
+    if (!company) { setFieldError(errCompany, "소속을 입력해 주세요."); invalid = true; }
+    if (!email) { setFieldError(errEmail, "이메일을 입력해 주세요."); invalid = true; }
+    else if (!isValidEmail(email)) { setFieldError(errEmail, "올바른 이메일 주소를 입력해 주세요."); invalid = true; }
+    if (invalid) return;
 
-    const checked = Array.from(form.querySelectorAll('input[name="countries"]:checked')).map(el => el.value);
-    if (chkOther && chkOther.checked && inputOther && inputOther.value.trim()) {
-      checked.push(inputOther.value.trim());
+    // 선택된 chip 추출
+    const selected = Array.from(chipsWrap.querySelectorAll('.chip-opt[aria-pressed="true"]'))
+      .map(btn => btn.dataset.value);
+    // 기타 내용 포함
+    if (selected.includes("기타") && otherInput.value.trim()) {
+      selected.push(otherInput.value.trim());
     }
-    const countries = checked.join(", ");
-    const receipt = { name, company, email, countries: checked };
+    const countries = selected.filter(v => v !== "기타").join(", ");
 
+    // 완료 페이지 표시용 데이터
+    const receipt = { name, company, email, countries: selected.filter(v => v) };
+
+    // 서버 전송
     const payload = new URLSearchParams({ name, company, email, source: "github-pages", countries });
 
     try {
@@ -80,7 +106,7 @@ if (form) {
         return;
       }
 
-      // ✅ 성공일 때만 이동
+      // 성공 시에만 완료 페이지로
       sessionStorage.setItem("oppa_newsletter_last", JSON.stringify(receipt));
       sessionStorage.setItem("oppa_newsletter_ok", "1");
       location.href = "./success.html";
