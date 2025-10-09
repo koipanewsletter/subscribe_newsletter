@@ -17,6 +17,7 @@
       </p>
     </header>
 
+    <!-- USP 영역 -->
     <section class="usp">
       <div class="chip">
         <b>매월 1회</b>
@@ -28,6 +29,7 @@
       </div>
     </section>
 
+    <!-- 폼 -->
     <form id="subscribe-form" class="card" novalidate>
       <!-- 스팸 방지: 허니팟 -->
       <div class="hp">
@@ -37,17 +39,17 @@
 
       <div class="field">
         <label for="name">이름 <span class="en">Name</span> <span class="req">*</span></label>
-        <input id="name" name="name" type="text" placeholder="홍길동" autocomplete="name" required />
+        <input id="name" name="name" type="text" placeholder="예: 김IP" autocomplete="name" required />
       </div>
 
       <div class="field">
         <label for="company">소속 <span class="en">Company</span> <span class="req">*</span></label>
-        <input id="company" name="company" type="text" placeholder="한국지식재산보호원" autocomplete="organization" required />
+        <input id="company" name="company" type="text" placeholder="예: 한국지식재산보호원" autocomplete="organization" required />
       </div>
 
       <div class="field">
         <label for="email">이메일 <span class="en">Email</span> <span class="req">*</span></label>
-        <input id="email" name="email" type="email" placeholder="you@example.com" required autocomplete="email" />
+        <input id="email" name="email" type="email" placeholder="예: mexicocity_ipcenter@koipa.re.kr" required autocomplete="email" />
       </div>
 
       <fieldset class="field">
@@ -59,8 +61,8 @@
           <label><input type="checkbox" name="countries" value="콜롬비아"> 콜롬비아</label>
           <label><input type="checkbox" name="countries" value="아르헨티나"> 아르헨티나</label>
           <label class="other-wrap">
-            <input type="checkbox" id="country_other_chk" name="countries" value="기타"> 기타
-            <input type="text" id="country_other" class="other-input" placeholder="예: 페루, 우루과이" aria-label="관심 국가 기타 입력" />
+            <span><input type="checkbox" id="country_other_chk" name="countries" value="기타"> 기타</span>
+            <input type="text" id="country_other" class="other-input hide" placeholder="예: 페루, 우루과이" aria-label="관심 국가 기타 입력" />
           </label>
         </div>
       </fieldset>
