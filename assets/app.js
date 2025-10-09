@@ -61,7 +61,7 @@ function transformOther(otherBtn){
   // 입력
   const input = document.createElement("input");
   input.type = "text";
-  input.placeholder = "관심 국가를 입력해 주세요.";
+  input.placeholder = "국가명을 입력해 주세요.";
   input.setAttribute("aria-label","기타 국가 입력");
   // X 버튼
   const x = document.createElement("button");
