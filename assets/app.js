@@ -8,7 +8,7 @@ const submitBtn = document.getElementById("submit-btn");
 const chkOther = document.getElementById("country_other_chk");
 const inputOther = document.getElementById("country_other");
 
-// 기타 입력 토글 (세로 깨짐 방지: CSS + hide 클래스로 제어)
+// 기타 입력 토글
 if (chkOther && inputOther) {
   const syncOther = () => {
     if (chkOther.checked) {
@@ -65,16 +65,16 @@ if (form) {
       .from(form.querySelectorAll('input[name="countries"]:checked'))
       .map((el) => el.value);
 
-    // 기타 입력 포함
     if (chkOther && chkOther.checked && inputOther && inputOther.value.trim()) {
       countriesChecked.push(inputOther.value.trim());
     }
     const countries = countriesChecked.join(", ");
 
+    // 완료 페이지에서 보여줄 값(미리 저장해두되, 리다이렉트는 성공 확인 후)
+    const receipt = { name, company, email, countries: countriesChecked };
+
     // 서버 전송(폼-인코딩)
-    const payload = new URLSearchParams({
-      name, company, email, source: "github-pages", countries
-    });
+    const payload = new URLSearchParams({ name, company, email, source: "github-pages", countries });
 
     try {
       setLoading(true);
@@ -84,22 +84,33 @@ if (form) {
         body: payload.toString(),
       });
 
-      let ok = res.ok;
-      try { const data = await res.json(); ok = !!data?.success; } catch(_) {}
+      // 1) 네트워크 레벨 체크
+      if (!res.ok) {
+        setStatus("err", "전송에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+        return;
+      }
 
-      // 완료 페이지에서 보여줄 값 저장
-      sessionStorage.setItem("oppa_newsletter_last", JSON.stringify({
-        name, company, email, countries: countriesChecked
-      }));
+      // 2) JSON 파싱 및 success 확인 (이 단계가 실패하면 리다이렉트하지 않음)
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        setStatus("err", "서버 응답을 확인하지 못했습니다. 다시 시도해 주세요.");
+        return;
+      }
 
-      // 사용자 플로우 유지
+      if (!data || !data.success) {
+        setStatus("err", "구독 저장에 실패했습니다. 입력 내용을 확인 후 다시 시도해 주세요.");
+        return;
+      }
+
+      // ✅ 여기까지 오면 확실히 저장된 것
+      sessionStorage.setItem("oppa_newsletter_last", JSON.stringify(receipt));
       location.href = "./success.html";
+
     } catch (err) {
       console.error(err);
-      sessionStorage.setItem("oppa_newsletter_last", JSON.stringify({
-        name, company, email, countries: countriesChecked
-      }));
-      location.href = "./success.html";
+      setStatus("err", "네트워크 오류가 발생했습니다. 연결 상태를 확인해 주세요.");
     } finally {
       setLoading(false);
     }
