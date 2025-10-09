@@ -64,12 +64,38 @@ if (form) {
     const company = form.company.value.trim();
     const email = form.email.value.trim();
 
+    // ✅ 필드 검증 + 첫 번째 에러 필드에 포커스(클릭 상태 유지)
     let invalid = false;
-    if (!name) { setFieldError(errName, "이름을 입력해 주세요."); invalid = true; }
-    if (!company) { setFieldError(errCompany, "소속을 입력해 주세요."); invalid = true; }
-    if (!email) { setFieldError(errEmail, "이메일을 입력해 주세요."); invalid = true; }
-    else if (!isValidEmail(email)) { setFieldError(errEmail, "올바른 이메일 주소를 입력해 주세요."); invalid = true; }
-    if (invalid) return;
+    let firstInvalidEl = null;
+
+    if (!name) {
+      setFieldError(errName, "이름을 입력해 주세요.");
+      invalid = true;
+      if (!firstInvalidEl) firstInvalidEl = form.name;
+    }
+    if (!company) {
+      setFieldError(errCompany, "소속을 입력해 주세요.");
+      invalid = true;
+      if (!firstInvalidEl) firstInvalidEl = form.company;
+    }
+    if (!email) {
+      setFieldError(errEmail, "이메일을 입력해 주세요.");
+      invalid = true;
+      if (!firstInvalidEl) firstInvalidEl = form.email;
+    } else if (!isValidEmail(email)) {
+      setFieldError(errEmail, "올바른 이메일 주소를 입력해 주세요.");
+      invalid = true;
+      if (!firstInvalidEl) firstInvalidEl = form.email;
+    }
+
+    if (invalid) {
+      // 포커스 + 살짝 스크롤
+      if (firstInvalidEl) {
+        firstInvalidEl.focus({ preventScroll: false });
+        firstInvalidEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
 
     // 선택된 chip 추출
     const selected = Array.from(chipsWrap.querySelectorAll('.chip-opt[aria-pressed="true"]'))
