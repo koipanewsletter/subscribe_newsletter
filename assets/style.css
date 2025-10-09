@@ -46,7 +46,7 @@ body {
 .page-head h1 { margin: 0 0 var(--space-1); font-size: var(--fs-4); font-weight: 800; }
 .lead { margin: 0; color: var(--muted); line-height: 1.6; font-size: var(--fs-2); }
 
-/* === USP 영역 (매월 1회 / 구독 동의) === */
+/* USP */
 .usp {
   display: flex;
   gap: 12px;
@@ -100,6 +100,7 @@ input[type="text"], input[type="email"], .other-input {
 }
 input:focus, .other-input:focus { border-color: var(--brand); background: #fff; }
 
+/* Countries */
 .checks {
   display: flex;
   flex-wrap: wrap;
@@ -110,16 +111,17 @@ input:focus, .other-input:focus { border-color: var(--brand); background: #fff; 
 
 .other-wrap {
   flex: 1 1 100%;
-  flex-direction: column;
+  display: flex;
+  flex-direction: column; /* 기타 텍스트 세로 깨짐 방지 */
   align-items: flex-start;
+  gap: 8px;
 }
 .other-input {
   width: 100%;
-  margin-top: 8px;
-  margin-left: 0;
 }
 .other-input.hide { display: none; }
 
+/* Button */
 .primary {
   width: 100%; margin-top: var(--space-2);
   padding: 14px 16px; font-size: var(--fs-2); font-weight: 800;
@@ -130,14 +132,15 @@ input:focus, .other-input:focus { border-color: var(--brand); background: #fff; 
 .primary:disabled { opacity: .6; cursor: not-allowed; }
 .primary:active { transform: translateY(1px); }
 
+/* Status */
 .status { min-height: 22px; margin: var(--space-2) 2px 0; font-size: var(--fs-1); color: #64748b; }
 .status.ok { color: var(--ok); }
 .status.err { color: var(--err); }
 
-/* Footer */
+/* Footer (간격 좁힘) */
 .page-foot {
   text-align: center;
-  margin-top: 8px;   /* 좁힘 */
+  margin-top: 8px;
   color: #64748b;
   font-size: var(--fs-1);
   line-height: 1.4;
