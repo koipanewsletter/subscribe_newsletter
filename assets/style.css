@@ -2,29 +2,30 @@
 *{box-sizing:border-box} html,body{height:100%}
 :root{
   --bg:#f7f9fc; --text:#1e2a36; --muted:#5b6b7d;
-  --brand:#2576ff; --brand-weak:#eaf3ff; --brand-border:#cfe0ff;
+  --brand:#5CA1D1; /* 새 브랜드 컬러 */
+  --brand-weak:#ebf6fb; --brand-border:#cfe9f6;
   --card:#fff; --card-border:#dde5ef; --input-bg:#f9fbff; --input-border:#cfd9e6;
-  --ok:#16a34a; --err:#dc2626;
+  --ok:#16a34a; --err:#d6263c;
   --s1:6px; --s2:10px; --s3:14px; --s4:18px; --s5:24px;
   --r1:10px; --r2:12px; --r3:18px;
   --fs0:12px; --fs1:14px; --fs2:16px; --fs3:18px; --fs4:28px;
 }
 body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:var(--text);background:var(--bg);line-height:1.55}
 
-/* Layout (초기 1페이지 수납을 위해 여백 살짝 축소) */
+/* Layout (초기 1페이지 수납) */
 .wrap{max-width:720px;margin:36px auto;padding:0 18px}
 .page-head{text-align:center;margin-bottom:var(--s2)}
 .page-head h1{margin:0 0 var(--s1);font-size:var(--fs4);font-weight:800}
 .lead{margin:0;color:var(--muted);font-size:var(--fs2)}
 
-/* USP */
-.usp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 12px}
-@media(max-width:640px){.usp{grid-template-columns:1fr}}
-.chip-info{position:relative;border-radius:18px;padding:16px}
-.chip-info p{margin:8px 0 0;color:var(--muted)}
-.chip-info.filled{background:#e7f1ff;border:1px solid #d6e7ff}
-.chip-info.outlined{background:#fff;border:1px solid #dbe7ff}
-.chip-badge{position:absolute;top:-12px;left:16px;padding:6px 12px;border-radius:999px;font-size:var(--fs1);font-weight:800;color:#1b4fdc;background:#dfeaff;border:1px solid var(--brand-border)}
+/* USP (리뉴얼: 배지 제거, 균형 카드) */
+.usp2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 12px}
+@media(max-width:640px){.usp2{grid-template-columns:1fr}}
+.usp-card{border-radius:16px;padding:14px 16px}
+.usp-card h3{margin:0 0 6px;font-size:16px;color:#12455f}
+.usp-card p{margin:0;color:var(--muted)}
+.usp-card.fill{background:var(--brand-weak);border:1px solid var(--brand-border)}
+.usp-card.line{background:#fff;border:1px solid #dbe7f3}
 
 /* Card / Form */
 .card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r3);box-shadow:0 6px 20px rgba(15,23,42,.06);padding:var(--s4)}
@@ -33,7 +34,7 @@ label,.legend{display:block;font-weight:700;margin:0 0 var(--s1)}
 .en{font-weight:500;color:#94a3b8;margin-left:6px;font-size:var(--fs1)}
 .req{color:var(--brand)}
 input[type="text"],input[type="email"]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--input-border);background:var(--input-bg);font-size:var(--fs2);outline:none;transition:border .15s,box-shadow .15s,background .15s}
-input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(37,118,255,.14)}
+input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(92,161,209,.18)}
 .error{min-height:16px;margin:6px 2px 0;font-size:var(--fs0);color:var(--err)}
 
 /* 칩 UI */
@@ -42,20 +43,26 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
   border:0;background:#fff;color:#223043;padding:8px 12px;border-radius:999px;font-size:var(--fs1);cursor:pointer;
   box-shadow:0 0 0 1px rgba(207,217,230,0);transition:background .15s,box-shadow .15s,color .15s
 }
-.chip-opt:hover{background:#f5f8ff}
-.chip-opt[aria-pressed="true"]{background:#e7f1ff;box-shadow:0 0 0 1px #9ec2ff;color:#1b4fdc}
-.chip-more{background:#f3f6fb;border:1px dashed #d0dceb;color:#3a506b}
-.chip-more:hover{background:#edf1f7}
-.chip-other{background:#f6faff;border:1px solid #d0e2ff;color:#294f9b}
+.chip-opt:hover{background:#f5f9ff}
+.chip-opt[aria-pressed="true"]{background:#eaf5fb;box-shadow:0 0 0 1px var(--brand-border);color:#196088}
+.chip-more{background:#f0f4f8;border:1px dashed #d2deea;color:#3a506b}
+.chip-more:hover{background:#e9f2f8}
+.chip-other{background:#f4fbff;border:1px solid #cfe9f6;color:#185b7f}
 
-/* 기타 인라인 입력 pill */
-.chip-input{display:inline-flex;align-items:center;border:1px solid #9ec2ff;background:#f5faff;border-radius:999px;padding:4px 6px 4px 10px;height:36px;gap:4px;margin-top:8px}
-.chip-input input{border:0;background:transparent;outline:none;font-size:var(--fs1);min-width:180px}
-.chip-input input::placeholder{color:#9fb1c7}
-.chip-clear{border:0;background:#cfe0ff;border-radius:999px;width:22px;height:22px;cursor:pointer;color:#274a8a;font-weight:900}
-.hide{display:none}
+/* 기타 인라인 입력(칩 자리에 변신) */
+.chip-inline-wrap{
+  display:inline-flex;align-items:center;height:34px;border-radius:999px;border:1px solid var(--brand-border);background:#f4fbff;
+  padding:4px 6px 4px 10px;gap:6px
+}
+.chip-inline-wrap input{
+  border:0;background:transparent;outline:none;font-size:var(--fs1);min-width:150px
+}
+.chip-inline-wrap input::placeholder{color:#9eb8c8}
+.chip-inline-wrap .chip-clear{
+  border:0;background:#d6edf7;border-radius:999px;width:22px;height:22px;cursor:pointer;color:#124d6a;font-weight:900;line-height:22px
+}
 
-/* Buttons & status */
+/* 버튼 & 상태 */
 .primary{width:100%;margin-top:var(--s2);padding:14px 16px;font-size:var(--fs2);font-weight:800;border:0;border-radius:12px;cursor:pointer;background:var(--brand);color:#fff;transition:transform .05s,opacity .2s}
 .primary:disabled{opacity:.6;cursor:not-allowed}.primary:active{transform:translateY(1px)}
 .status{min-height:22px;margin:var(--s2) 2px 0;font-size:var(--fs1);color:#64748b}
@@ -65,7 +72,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .page-foot{text-align:center;margin-top:6px;color:#64748b;font-size:var(--fs1);line-height:1.35}
 .page-foot .privacy{margin:0 0 4px} .page-foot small{display:block}
 
-/* Receipt */
+/* Success receipt */
 .receipt{border-style:dashed;border-color:#93c5fd;background:#f8fbff}
 .kv{margin:0} .kv div{display:grid;grid-template-columns:90px 1fr;gap:10px;padding:8px 4px}
 .kv dt{color:#475569;font-weight:700} .kv dd{margin:0;color:#0f172a}
@@ -74,7 +81,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-/* Responsive tweaks */
+/* Responsive */
 @media(max-width:480px){
   .wrap{margin:28px auto;padding:0 16px}
   .page-head h1{font-size:22px}
