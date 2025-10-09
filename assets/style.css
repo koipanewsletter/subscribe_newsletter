@@ -1,88 +1,123 @@
 /* Base */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
+:root{
+  --bg:#f5f7fb;
+  --text:#1e2a36;
+  --muted:#5b6b7d;
+  --brand:#2563eb;
+  --brand-weak:#eef5ff;
+  --brand-border:#d8e6ff;
+  --card:#fff;
+  --card-border:#dde5ef;
+  --input-bg:#f9fbff;
+  --input-border:#cfd9e6;
+  --ok:#16a34a;
+  --err:#dc2626;
+
+  --space-1:6px;
+  --space-2:10px;
+  --space-3:14px;
+  --space-4:18px;
+  --space-5:24px;
+  --radius-1:10px;
+  --radius-2:12px;
+  --radius-3:16px;
+
+  --fs-1:14px;
+  --fs-2:16px;
+  --fs-3:18px;
+  --fs-4:28px;
+}
+
 body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
                Roboto, "Helvetica Neue", Arial, "Apple SD Gothic Neo",
                "Noto Sans KR", sans-serif;
-  color: #1e2a36;
-  background: #f5f7fb;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.55;
 }
 
 /* Layout */
 .wrap { max-width: 720px; margin: 56px auto; padding: 0 20px; }
-.page-head { text-align: center; margin-bottom: 18px; }
-.page-head h1 { margin: 0 0 8px; font-size: 28px; }
-.lead { margin: 0; color: #5b6b7d; line-height: 1.6; }
+.page-head { text-align: center; margin-bottom: var(--space-2); }
+.page-head h1 { margin: 0 0 var(--space-1); font-size: var(--fs-4); font-weight: 800; }
+.lead { margin: 0; color: var(--muted); line-height: 1.6; font-size: var(--fs-2); }
 
 .usp {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 18px 0 16px;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 var(--space-2);
 }
-@media (max-width: 640px) {
-  .usp { grid-template-columns: 1fr; }
-}
+@media (max-width: 680px) { .usp { grid-template-columns: 1fr; } }
 
 .chip {
-  background: #eef5ff;
-  border: 1px solid #d8e6ff;
-  border-radius: 14px;
-  padding: 14px 16px;
+  background: var(--brand-weak);
+  border: 1px solid var(--brand-border);
+  border-radius: var(--radius-2);
+  padding: var(--space-3) var(--space-3);
 }
 .chip b { display: inline-block; margin-right: 8px; color: #175cd3; }
 .chip span { color: #39526b; }
 
 /* Card / Form */
 .card {
-  background: #fff;
-  border: 1px solid #dde5ef;
-  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-3);
   box-shadow: 0 6px 20px rgba(15, 23, 42, .06);
-  padding: 18px;
+  padding: var(--space-4);
 }
 
-.field { margin-bottom: 14px; }
+.field { margin-bottom: var(--space-3); }
 .field:last-child { margin-bottom: 0; }
-label, legend { display: block; font-weight: 700; margin: 0 0 6px; }
-.en { font-weight: 500; color: #94a3b8; margin-left: 6px; }
-.req { color: #2563eb; }
+label, legend { display: block; font-weight: 700; margin: 0 0 var(--space-1); }
+.en { font-weight: 500; color: #94a3b8; margin-left: 6px; font-size: var(--fs-1); }
+.req { color: var(--brand); }
 
-input[type="text"], input[type="email"] {
+input[type="text"], input[type="email"], .other-input {
   width: 100%; padding: 12px 14px;
-  border-radius: 10px; border: 1px solid #cfd9e6;
-  background: #f9fbff; outline: none; transition: border .15s ease, background .15s ease;
+  border-radius: var(--radius-1);
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  outline: none; transition: border .15s ease, background .15s ease;
+  font-size: var(--fs-2);
 }
-input:focus { border-color: #2563eb; background: #fff; }
+input:focus, .other-input:focus { border-color: var(--brand); background: #fff; }
 
 .checks { display: flex; flex-wrap: wrap; gap: 10px 16px; }
-.checks label { font-weight: 500; }
+.checks label { font-weight: 500; display:flex; align-items:center; gap:8px; }
+
+.other-wrap { gap: 8px; flex: 1 1 100%; }
+.other-input {
+  margin-left: 28px; /* 체크박스 공간만큼 들여쓰기 */
+  margin-top: 6px;
+}
 
 .primary {
-  width: 100%; margin-top: 10px;
-  padding: 14px 16px; font-size: 16px; font-weight: 800;
-  border: 0; border-radius: 12px; cursor: pointer;
-  background: #2563eb; color: #fff;
+  width: 100%; margin-top: var(--space-2);
+  padding: 14px 16px; font-size: var(--fs-2); font-weight: 800;
+  border: 0; border-radius: var(--radius-2); cursor: pointer;
+  background: var(--brand); color: #fff;
   transition: transform .05s ease, opacity .2s;
 }
 .primary:disabled { opacity: .6; cursor: not-allowed; }
 .primary:active { transform: translateY(1px); }
 
-.status { min-height: 22px; margin: 10px 2px 0; font-size: 14px; color: #64748b; }
-.status.ok { color: #16a34a; }
-.status.err { color: #dc2626; }
+.status { min-height: 22px; margin: var(--space-2) 2px 0; font-size: var(--fs-1); color: #64748b; }
+.status.ok { color: var(--ok); }
+.status.err { color: var(--err); }
 
 /* Footer */
-.page-foot { text-align: center; margin-top: 16px; color: #64748b; }
-.page-foot a { color: #2563eb; }
+.page-foot { text-align: center; margin-top: var(--space-2); color: #64748b; font-size: var(--fs-1); }
+.page-foot a { color: var(--brand); }
 
 /* Success receipt (도트 라인 박스 느낌) */
 .receipt {
-  border-style: dashed;
-  border-color: #93c5fd;
-  background: #f8fbff;
+  border-style: dashed; border-color: #93c5fd; background: #f8fbff;
 }
 .kv { margin: 0; }
 .kv div { display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 8px 4px; }
@@ -92,3 +127,16 @@ input:focus { border-color: #2563eb; background: #fff; }
 
 /* Honeypot (봇 방지) */
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* --- Responsive tweaks --- */
+@media (max-width: 480px){
+  .wrap { margin: 32px auto; padding: 0 16px; }
+  .page-head h1 { font-size: 22px; }
+  .lead { font-size: 14px; }
+  .kv div { grid-template-columns: 78px 1fr; }
+}
+@media (min-width: 960px){
+  .wrap { max-width: 840px; }
+  .page-head h1 { font-size: 32px; }
+  .card { padding: 24px; }
+}
