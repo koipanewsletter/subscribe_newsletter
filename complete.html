@@ -1,13 +1,49 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <title>구독 완료</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>『요즘 중남미 IP』 구독 완료</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+  <meta name="robots" content="noindex">
 </head>
 <body>
-  <main>
-    <h1>감사합니다!</h1>
-    <p>뉴스레터 구독이 완료되었습니다.</p>
+  <main class="wrap">
+    <header class="page-head">
+      <h1>『요즘 중남미 IP』 구독 완료</h1>
+    </header>
+
+    <section class="card receipt" id="receipt">
+      <!-- JS가 세션 스토리지 값으로 채웁니다 -->
+      <dl class="kv">
+        <div><dt>이름</dt><dd id="r_name">-</dd></div>
+        <div><dt>소속</dt><dd id="r_company">-</dd></div>
+        <div><dt>이메일</dt><dd id="r_email">-</dd></div>
+        <div id="r_countries_block" class="hide"><dt>관심 국가</dt><dd id="r_countries">-</dd></div>
+      </dl>
+    </section>
+
+    <footer class="page-foot">
+      <p class="privacy">
+        본 구독 신청은 뉴스레터 발송을 위한 최소한의 정보만 수집하며 언제든지 수신 거부가 가능합니다.<br />
+        문의 : <a href="mailto:mexicocity_ipcenter@koipa.re.kr">mexicocity_ipcenter@koipa.re.kr</a>
+      </p>
+      <small>© 2025 KOIPA Mexico City IP Center</small>
+    </footer>
   </main>
+
+  <script>
+    // 세션 스토리지에서 값 복원
+    const data = JSON.parse(sessionStorage.getItem("oppa_newsletter_last") || "{}");
+    const qs = (id) => document.getElementById(id);
+
+    qs("r_name").textContent = data.name || "-";
+    qs("r_company").textContent = data.company || "-";
+    qs("r_email").textContent = data.email || "-";
+    if (data.countries && data.countries.length) {
+      qs("r_countries").textContent = data.countries.join(", ");
+      document.getElementById("r_countries_block").classList.remove("hide");
+    }
+  </script>
 </body>
 </html>
