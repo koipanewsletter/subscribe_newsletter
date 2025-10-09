@@ -36,13 +36,13 @@
       </div>
 
       <div class="field">
-        <label for="name">이름 <span class="en">Name</span></label>
-        <input id="name" name="name" type="text" placeholder="홍길동" autocomplete="name" />
+        <label for="name">이름 <span class="en">Name</span> <span class="req">*</span></label>
+        <input id="name" name="name" type="text" placeholder="홍길동" autocomplete="name" required />
       </div>
 
       <div class="field">
-        <label for="company">소속 <span class="en">Company</span></label>
-        <input id="company" name="company" type="text" placeholder="한국지식재산보호원" autocomplete="organization" />
+        <label for="company">소속 <span class="en">Company</span> <span class="req">*</span></label>
+        <input id="company" name="company" type="text" placeholder="한국지식재산보호원" autocomplete="organization" required />
       </div>
 
       <div class="field">
@@ -50,7 +50,6 @@
         <input id="email" name="email" type="email" placeholder="you@example.com" required autocomplete="email" />
       </div>
 
-      <!-- 선택) 관심국가 -->
       <fieldset class="field">
         <legend>관심 국가 (선택)</legend>
         <div class="checks">
@@ -59,6 +58,10 @@
           <label><input type="checkbox" name="countries" value="칠레"> 칠레</label>
           <label><input type="checkbox" name="countries" value="콜롬비아"> 콜롬비아</label>
           <label><input type="checkbox" name="countries" value="아르헨티나"> 아르헨티나</label>
+          <label class="other-wrap">
+            <input type="checkbox" id="country_other_chk" name="countries" value="기타"> 기타
+            <input type="text" id="country_other" class="other-input" placeholder="예: 페루, 우루과이" aria-label="관심 국가 기타 입력" />
+          </label>
         </div>
       </fieldset>
 
@@ -79,7 +82,7 @@
 
   <script>
     window.OPPA_NEWSLETTER_ENDPOINT =
-      "https://script.google.com/macros/s/AKfycbzmieChybegTnuGh0R_WcPbnpCnUOj8g-fgLmphEOy0FC8QxX6dfBqH2SVZVtJnsaqP/exec";
+      "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun/exec";
   </script>
   <script src="./assets/app.js"></script>
 </body>
