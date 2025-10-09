@@ -6,6 +6,16 @@
   <title>『요즘 중남미 IP』 구독 완료</title>
   <link rel="stylesheet" href="./assets/style.css" />
   <meta name="robots" content="noindex">
+  <script>
+    // ✅ 가드: 직접 접근 시 index.html로 리다이렉트
+    (function(){
+      const ok = sessionStorage.getItem("oppa_newsletter_ok");
+      const data = sessionStorage.getItem("oppa_newsletter_last");
+      if (ok !== "1" || !data) {
+        location.replace("./index.html");
+      }
+    })();
+  </script>
 </head>
 <body>
   <main class="wrap">
@@ -14,7 +24,6 @@
     </header>
 
     <section class="card receipt" id="receipt">
-      <!-- JS가 세션 스토리지 값으로 채웁니다 -->
       <dl class="kv">
         <div><dt>이름</dt><dd id="r_name">-</dd></div>
         <div><dt>소속</dt><dd id="r_company">-</dd></div>
@@ -33,17 +42,19 @@
   </main>
 
   <script>
-    // 세션 스토리지에서 값 복원
     const data = JSON.parse(sessionStorage.getItem("oppa_newsletter_last") || "{}");
-    const qs = (id) => document.getElementById(id);
-
-    qs("r_name").textContent = data.name || "-";
-    qs("r_company").textContent = data.company || "-";
-    qs("r_email").textContent = data.email || "-";
+    const $ = (id) => document.getElementById(id);
+    $("r_name").textContent = data.name || "-";
+    $("r_company").textContent = data.company || "-";
+    $("r_email").textContent = data.email || "-";
     if (data.countries && data.countries.length) {
-      qs("r_countries").textContent = data.countries.join(", ");
+      $("r_countries").textContent = data.countries.join(", ");
       document.getElementById("r_countries_block").classList.remove("hide");
     }
+
+    // ✅ 1회용: 표시 후 즉시 제거
+    sessionStorage.removeItem("oppa_newsletter_ok");
+    sessionStorage.removeItem("oppa_newsletter_last");
   </script>
 </body>
 </html>
