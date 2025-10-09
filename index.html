@@ -31,7 +31,7 @@
 
     <!-- 구독 폼 -->
     <form id="subscribe-form" class="card" novalidate>
-      <!-- 스팸 방지: 허니팟 -->
+      <!-- 허니팟 -->
       <div class="hp">
         <label for="company_hp">회사명(작성 금지)</label>
         <input id="company_hp" name="company_hp" type="text" autocomplete="organization" />
@@ -55,43 +55,18 @@
         <p class="error" id="err_email"></p>
       </div>
 
-      <!-- 관심 국가 (반응형: 데스크톱=멀티 셀렉트, 모바일=모달 피커) -->
+      <!-- 관심 국가: 칩 + 더보기 -->
       <div class="field">
-        <label class="legend">관심 국가 (중복 선택 가능)</label>
+        <span class="legend">관심 국가 (중복 선택 가능)</span>
 
-        <!-- 데스크톱 전용 멀티 드롭다운 -->
-        <select id="countries_select" multiple size="8" class="select-multi desktop-only" aria-label="관심 국가">
-          <!-- 옵션은 app.js에서 주입 -->
-        </select>
+        <div class="chips" id="countries_chips" role="group" aria-label="관심 국가">
+          <!-- 칩은 app.js에서 렌더링 -->
+        </div>
 
-        <!-- 모바일 전용: 모달 오프너 -->
-        <button type="button" id="countries_open" class="picker-btn mobile-only" aria-haspopup="dialog" aria-controls="countries_modal">
-          관심 국가 선택하기 <span id="countries_badge" class="badge">0</span>
-        </button>
-
-        <!-- 모바일 모달 -->
-        <div id="countries_modal" class="modal hide" role="dialog" aria-modal="true" aria-labelledby="countries_title">
-          <div class="modal-backdrop" data-close></div>
-          <div class="modal-panel">
-            <div class="modal-head">
-              <h2 id="countries_title">관심 국가 선택</h2>
-              <button type="button" class="modal-close" data-close aria-label="닫기">×</button>
-            </div>
-            <div class="modal-body">
-              <div id="countries_checks" class="checks-col">
-                <!-- 체크박스는 app.js에서 주입 -->
-              </div>
-              <div class="other-wrap">
-                <label for="country_other" class="sr-only">기타 국가</label>
-                <input type="text" id="country_other" class="other-input"
-                       placeholder="관심 국가를 입력해 주세요." aria-label="관심 국가 기타 입력" />
-              </div>
-            </div>
-            <div class="modal-foot">
-              <button type="button" id="countries_clear" class="btn ghost">초기화</button>
-              <button type="button" id="countries_apply" class="btn primary sm">선택 완료</button>
-            </div>
-          </div>
+        <!-- 기타 인라인 pill -->
+        <div id="chip_other_input" class="chip-input hide">
+          <input type="text" id="country_other" placeholder="관심 국가를 입력해 주세요." aria-label="기타 국가 입력" />
+          <button type="button" id="chip_other_clear" class="chip-clear" aria-label="기타 입력 지우기">×</button>
         </div>
       </div>
 
@@ -114,6 +89,6 @@
     window.OPPA_NEWSLETTER_ENDPOINT =
       "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun/exec";
   </script>
-  <script src="./assets/app.js?v=20251009-5"></script>
+  <script src="./assets/app.js?v=20251009-6"></script>
 </body>
 </html>
