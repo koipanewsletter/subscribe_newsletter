@@ -90,6 +90,9 @@ body {
   padding: var(--space-4);
 }
 
+/* fieldset 기본 테두리 제거 */
+fieldset { border: 0; padding: 0; margin: 0 0 var(--space-3); }
+
 .field { margin-bottom: var(--space-3); }
 .field:last-child { margin-bottom: 0; }
 label, legend { display:block; font-weight: 700; margin: 0 0 var(--space-1); }
@@ -114,23 +117,27 @@ input:focus, .other-input:focus { border-color: var(--brand); background: #fff; 
   color: var(--err);
 }
 
-/* 관심 국가: 멀티 Chip 버튼 */
+/* 관심 국가: 멀티 Chip 버튼 (회색 스트로크 제거) */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip-opt {
-  border: 1px solid #cfd9e6;
+  border: 0;                 /* ← 기본 회색 테두리 제거 */
   background: #fff;
   color: #223043;
   padding: 8px 12px;
   border-radius: 999px;
   font-size: var(--fs-1);
   cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(207,217,230,.0); /* 클릭 영역 보정 */
+  transition: background .15s ease, box-shadow .15s ease, color .15s ease;
 }
+.chip-opt:hover { background: #f5f8ff; }
 .chip-opt[aria-pressed="true"],
 .chip-opt.selected {
   background: #e7f1ff;
-  border-color: #9ec2ff;
+  box-shadow: 0 0 0 1px #9ec2ff; /* 선택 시만 라인 강조 */
   color: #1b4fdc;
 }
+
 .other-wrap { margin-top: 8px; }
 .other-input { background: #fff; }
 
