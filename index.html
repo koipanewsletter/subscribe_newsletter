@@ -14,7 +14,6 @@
     action="https://script.google.com/macros/s/AKfycbzmMo9uep-ZMQFOLwGEhbh4U7TVv3FodbOCacFv1rVe2saw4QRPQDhhghET7rqSOIa0/exec"
     method="POST"
     id="subscribeForm"
-    onsubmit="submitted=true;"
   >  
       <label>이름 <input name="name" required></label>
       <label>소속 <input name="company" required></label>
@@ -33,7 +32,7 @@
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
   </main>
 
-  <script>
+  <!--<script>
     let submitted = false;
     // 폼 제출 후 완료 페이지로 리디렉션
     document.getElementById("subscribeForm").addEventListener("submit", function() {
@@ -43,6 +42,6 @@
         }
       }, 500);
     });
-  </script>
+  </script>-->
 </body>
 </html>
