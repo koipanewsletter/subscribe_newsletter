@@ -79,7 +79,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .chip-opt:hover{background:#f5f9ff}
 .chip-opt[aria-pressed="true"]{background:#eaf5fb;box-shadow:0 0 0 1px var(--brand-border);color:#196088}
 
-/* 더보기 칩: 점선 → 연한 실선 */
+/* 더보기 칩: 연한 실선 */
 .chip-more{
   background:#f4f7fb;
   border:1px solid #cfd9e6;
@@ -90,21 +90,34 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 /* ‘기타’ 칩 기본 톤 */
 .chip-other{background:#f4fbff;border:1px solid var(--brand-border);color:#185b7f}
 
-/* 기타 인라인 입력(칩 자리에 변신) */
+/* =========================
+   기타 인라인 입력(칩 자리 변신)
+   - placeholder가 안 짤리도록 폭/플로우 개선
+   - 모바일 포커스 확대 방지(16px)
+   ========================= */
 .chip-inline-wrap{
   display:inline-flex;align-items:center;
-  height:32px;border-radius:999px;
+  height:34px;border-radius:999px;
   border:1px solid var(--brand-border);
   background:#f4fbff;
-  padding:3px 6px 3px 10px;gap:6px;
-  max-width:230px;             /* 칩 폭 제한 */
+  padding:4px 6px 4px 10px;gap:6px;
+  max-width:min(360px,85vw);     /* 칩 폭 유연 확장 */
 }
 .chip-inline-wrap input{
-  border:0;background:transparent;outline:none;font-size:var(--fs1);
-  min-width:80px;max-width:150px;flex:1;
+  border:0;background:transparent;outline:none;
+  font-size:var(--fs2);           /* 16px → 모바일 자동줌 방지 */
+  line-height:1.2;
+  min-width:120px;
+  max-width:none;                 /* 말림 제거 */
+  flex:1;                         /* 남는 폭 활용 */
+}
+.chip-inline-wrap input::placeholder{
+  color:#9eb8c8;
+  white-space:nowrap;             /* 줄바꿈 금지 */
+  overflow:hidden;
+  text-overflow:ellipsis;         /* 길면 … 처리 */
 }
 .chip-inline-wrap input:focus{border:none;outline:none;box-shadow:none}
-.chip-inline-wrap input::placeholder{color:#9eb8c8}
 .chip-inline-wrap .chip-clear{
   border:0;background:#d6edf7;border-radius:999px;width:22px;height:22px;
   cursor:pointer;color:#124d6a;font-weight:900;line-height:22px
@@ -129,20 +142,20 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .page-foot{margin-top:16px;color:#64748b}
 .page-foot .privacy{margin:0 0 8px;font-size:var(--fs1);line-height:1.45}
 .foot-row{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
-.foot-row .contact,.foot-row .copy{font-size:var(--fs1)}   /* 같은 글자 크기 */
+.foot-row .contact,.foot-row .copy{font-size:var(--fs1)}
 @media(min-width:768px){
   .foot-row{flex-direction:row;justify-content:space-between;align-items:center}
 }
-.page-foot{margin-bottom:20px}
+.page-foot{margin-bottom:36px}   /* ← 맨 아래 여백 확대 */
 
 /* =========================
    Success Receipt (success.html)
    ========================= */
 .receipt{
-  border-style:solid;          
+  border-style:solid;
   border-color:#b5d7f0;
   background:#f8fbff;
-  margin-top:24px;             
+  margin-top:24px;
   margin-bottom:24px;
   padding:20px 20px 16px;
 }
