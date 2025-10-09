@@ -3,24 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>『요즘 중남미 IP』 구독 완료</title>
+  <title>『요즘 중남미 IP』 구독 신청</title>
   <link rel="stylesheet" href="./assets/style.css" />
   <meta name="robots" content="noindex">
 </head>
 <body>
   <main class="wrap">
     <header class="page-head">
-      <h1>『요즘 중남미 IP』 구독 완료</h1>
+      <h1>『요즘 중남미 IP』 구독 신청</h1>
+      <p class="lead">
+        한국지식재산보호원 멕시코시티 IP센터 뉴스레터<br />
+        중남미 최신 IP 판례·제도·이슈를 한눈에
+      </p>
     </header>
 
-    <section class="card receipt" id="receipt">
-      <dl class="kv">
-        <div><dt>이름</dt><dd id="r_name">-</dd></div>
-        <div><dt>소속</dt><dd id="r_company">-</dd></div>
-        <div><dt>이메일</dt><dd id="r_email">-</dd></div>
-        <div id="r_countries_block" class="hide"><dt>관심 국가</dt><dd id="r_countries">-</dd></div>
-      </dl>
+    <!-- USP -->
+    <section class="usp">
+      <div class="chip">
+        <b>매월 1회</b>
+        <span>한국 기업을 위한 중남미 주요 IP 뉴스 및 분석을 전해드립니다.</span>
+      </div>
+      <div class="chip">
+        <b>구독 동의</b>
+        <span>최신 판례·제도 동향, 센터 소식을 이메일로 받아보실 수 있습니다.</span>
+      </div>
     </section>
+
+    <!-- 구독 폼 -->
+    <form id="subscribe-form" class="card" novalidate>
+      <!-- 허니팟 -->
+      <div class="hp">
+        <label for="company_hp">회사명(작성 금지)</label>
+        <input id="company_hp" name="company_hp" type="text" autocomplete="organization" />
+      </div>
+
+      <div class="field">
+        <label for="name">이름 <span class="en">Name</span> <span class="req">*</span></label>
+        <input id="name" name="name" type="text" placeholder="예: 김IP" required />
+      </div>
+
+      <div class="field">
+        <label for="company">소속 <span class="en">Company</span> <span class="req">*</span></label>
+        <input id="company" name="company" type="text" placeholder="예: 한국지식재산보호원" required />
+      </div>
+
+      <div class="field">
+        <label for="email">이메일 <span class="en">Email</span> <span class="req">*</span></label>
+        <input id="email" name="email" type="email" placeholder="예: mexicocity_ipcenter@koipa.re.kr" required />
+      </div>
+
+      <fieldset class="field">
+        <legend>관심 국가 (선택)</legend>
+        <div class="checks">
+          <label><input type="checkbox" name="countries" value="멕시코"> 멕시코</label>
+          <label><input type="checkbox" name="countries" value="브라질"> 브라질</label>
+          <label><input type="checkbox" name="countries" value="칠레"> 칠레</label>
+          <label><input type="checkbox" name="countries" value="콜롬비아"> 콜롬비아</label>
+          <label><input type="checkbox" name="countries" value="아르헨티나"> 아르헨티나</label>
+          <label class="other-wrap">
+            <span><input type="checkbox" id="country_other_chk" name="countries" value="기타"> 기타</span>
+            <input type="text" id="country_other" class="other-input hide" placeholder="예: 페루, 우루과이" aria-label="관심 국가 기타 입력" />
+          </label>
+        </div>
+      </fieldset>
+
+      <input type="hidden" name="source" value="github-pages" />
+
+      <button id="submit-btn" type="submit" class="primary">구독하기</button>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </form>
 
     <footer class="page-foot">
       <p class="privacy">
@@ -32,15 +83,5 @@
   </main>
 
   <script>
-    const data = JSON.parse(sessionStorage.getItem("oppa_newsletter_last") || "{}");
-    const $ = (id) => document.getElementById(id);
-    $("r_name").textContent = data.name || "-";
-    $("r_company").textContent = data.company || "-";
-    $("r_email").textContent = data.email || "-";
-    if (data.countries && data.countries.length) {
-      $("r_countries").textContent = data.countries.join(", ");
-      $("r_countries_block").classList.remove("hide");
-    }
-  </script>
-</body>
-</html>
+    window.OPPA_NEWSLETTER_ENDPOINT =
+      "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun
