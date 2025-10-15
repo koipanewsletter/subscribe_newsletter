@@ -7,7 +7,13 @@ const submitBtn = document.getElementById("submit-btn");
 const errName = document.getElementById("err_name");
 const errCompany = document.getElementById("err_company");
 const errEmail = document.getElementById("err_email");
-const clearErrors = () => { errName.textContent=""; errCompany.textContent=""; errEmail.textContent=""; };
+const errConsent = document.getElementById("err_consent"); // ✅ 추가
+const clearErrors = () => { 
+  errName.textContent = "";
+  errCompany.textContent = "";
+  errEmail.textContent = "";
+  if (errConsent) errConsent.textContent = ""; // ✅ 추가
+};
 
 const chipsWrap = document.getElementById("countries_chips");
 
@@ -127,12 +133,17 @@ if (form){
     const name = form.name.value.trim();
     const company = form.company.value.trim();
     const email = form.email.value.trim();
+    const consent = form.consent?.checked === true; // ✅ 추가
 
     let firstInvalid=null;
     if (!name){ errName.textContent="이름을 입력해 주세요."; firstInvalid ??= form.name; }
     if (!company){ errCompany.textContent="소속을 입력해 주세요."; firstInvalid ??= form.company; }
     if (!email){ errEmail.textContent="이메일을 입력해 주세요."; firstInvalid ??= form.email; }
     else if (!isValidEmail(email)){ errEmail.textContent="올바른 이메일 주소를 입력해 주세요."; firstInvalid ??= form.email; }
+    if (!consent){
+      if (errConsent) errConsent.textContent = "뉴스레터 안내를 위해 개인정보 수집·이용에 동의해 주세요.";
+      firstInvalid ??= form.consent;
+    }
     if (firstInvalid){ firstInvalid.focus(); firstInvalid.scrollIntoView({behavior:"smooth",block:"center"}); return; }
 
     const selected = Array.from(chipsWrap.querySelectorAll('.chip-opt[aria-pressed="true"]'))
