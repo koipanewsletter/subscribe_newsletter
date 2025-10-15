@@ -32,7 +32,7 @@ body{
 .lead{margin:0;color:var(--muted);font-size:var(--fs2)}
 
 /* =========================
-   USP (서비스 안내 카드)
+   USP
    ========================= */
 .usp2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 12px}
 @media(max-width:640px){.usp2{grid-template-columns:1fr}}
@@ -68,7 +68,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .error:empty{display:none}
 
 /* =========================
-   Chips (관심 국가 선택)
+   Chips (countries)
    ========================= */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip-opt{
@@ -81,25 +81,13 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .chip-more{background:#f4f7fb;border:1px solid #cfd9e6;color:#3a506b}
 .chip-more:hover{background:#e9f2f8}
 .chip-other{background:#f4fbff;border:1px solid var(--brand-border);color:#185b7f}
-
-/* 기타 인라인 입력칩 */
 .chip-inline-wrap{
-  display:inline-flex;align-items:center;height:34px;
-  border-radius:999px;border:1px solid var(--brand-border);
-  background:#f4fbff;padding:4px 6px 4px 10px;gap:6px;
-  max-width:min(360px,85vw);
+  display:inline-flex;align-items:center;height:34px;border-radius:999px;border:1px solid var(--brand-border);
+  background:#f4fbff;padding:4px 6px 4px 10px;gap:6px;max-width:min(360px,85vw);
 }
-.chip-inline-wrap input{
-  border:0;background:transparent;outline:none;
-  font-size:var(--fs1);line-height:1.2;min-width:120px;flex:1;
-}
-.chip-inline-wrap input::placeholder{
-  color:#9eb8c8;font-size:var(--fs1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.chip-inline-wrap .chip-clear{
-  border:0;background:#d6edf7;border-radius:999px;
-  width:22px;height:22px;cursor:pointer;color:#124d6a;font-weight:900;line-height:22px;padding:0;
-}
+.chip-inline-wrap input{border:0;background:transparent;outline:none;font-size:var(--fs1);line-height:1.2;min-width:120px;flex:1}
+.chip-inline-wrap input::placeholder{color:#9eb8c8;font-size:var(--fs1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip-inline-wrap .chip-clear{border:0;background:#d6edf7;border-radius:999px;width:22px;height:22px;cursor:pointer;color:#124d6a;font-weight:900;line-height:22px;padding:0}
 
 /* =========================
    Primary Button / Status
@@ -127,7 +115,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .page-foot{margin-bottom:36px}
 
 /* =========================
-   Success Receipt (구독 완료)
+   Success Receipt
    ========================= */
 .receipt{
   border-style:solid;border-color:#b5d7f0;background:#f8fbff;
@@ -161,78 +149,54 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 
 /* =========================
-   Privacy Consent (Minimal)
+   Privacy Consent (Inline link + Modal)
    ========================= */
 .card-lite{
   background:var(--card);
   border:1px solid var(--card-border);
   border-radius:var(--r2);
-  padding:14px;
+  padding:12px;
   margin-top:var(--s3);
 }
-
-/* 자세히 보기 summary */
-.privacy-details{margin:0 0 8px}
-.privacy-summary{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:0;
-  cursor:pointer;
-  font-size:var(--fs1);
-  color:#2563eb;
-}
-.privacy-summary::after{
-  content:"▼";
-  font-size:10px;
-  transform:translateY(1px);
-  opacity:.8;
-}
-.privacy-details[open] .privacy-summary::after{
-  content:"▲";
-}
-
-/* 상세 본문 */
-.privacy-body{
-  margin-top:6px;
-  padding:8px 10px;
-  border-left:3px solid var(--brand-border);
-  background:#f8fbff;
-  border-radius:8px;
-}
-.privacy-desc{
-  margin:0 0 6px;
-  color:var(--muted);
-  font-size:13px;
-}
-.privacy-list{
-  margin:0;
-  padding-left:16px;
-}
-.privacy-list li{
-  margin:3px 0;
-  font-size:13px;
-  color:#334155;
-}
-.privacy-list strong{margin-right:6px}
-
-/* 체크박스 한 줄 정렬 */
+.privacy-consent{display:flex;flex-direction:column;gap:6px}
 .privacy-checkbox{
-  display:flex;
-  align-items:flex-start;
-  gap:8px;
-  font-size:14px;
-  line-height:1.5;
-  color:#1f2a37;
+  display:flex; align-items:baseline; gap:8px;
+  font-size:14px; line-height:1.5; color:#1f2a37;
 }
-.privacy-checkbox input{
-  margin-top:3px;
-  accent-color:var(--brand);
+.privacy-checkbox input{accent-color:var(--brand)}
+.inline-link{
+  color:#2563eb;
+  text-decoration:underline;
 }
+.inline-link:focus{outline:2px solid rgba(37,99,235,.35);outline-offset:2px}
 
-/* 반응형: 모바일일 때 폰트 살짝 축소 */
+/* =========================
+   Modal
+   ========================= */
+.modal{position:fixed;inset:0;z-index:60;display:none}
+.modal.is-open{display:block}
+.modal[aria-hidden="true"]{display:none}
+.modal__backdrop{position:absolute;inset:0;background:rgba(15,23,42,.5)}
+.modal__dialog{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(576px,92vw);max-height:80vh;overflow:auto;
+  background:#fff;border-radius:14px;border:1px solid #e2e8f0;
+  box-shadow:0 20px 60px rgba(2,8,23,.25);
+}
+.modal__header{padding:16px 18px 10px;border-bottom:1px solid #eef2f7}
+.modal__header h2{margin:0;font-size:18px}
+.modal__body{padding:14px 18px;color:#334155}
+.modal__body ul{margin:8px 0 0;padding-left:18px}
+.modal__body li{margin:4px 0}
+.modal__footer{padding:12px 18px;border-top:1px solid #eef2f7;display:flex;justify-content:flex-end}
+.modal__close{
+  padding:8px 14px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;
+}
+.modal__close:hover{background:#f1f5f9}
+
+/* 모바일 미세 튜닝 */
 @media(max-width:480px){
-  .privacy-summary{font-size:13px}
-  .privacy-desc,.privacy-list li{font-size:12px}
-  .privacy-checkbox{font-size:13px}
+  .inline-link{font-size:13px}
+  .modal__header h2{font-size:16px}
+  .modal__body{font-size:14px}
 }
