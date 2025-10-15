@@ -158,15 +158,15 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
    ========================= */
 .card-lite{
   background:var(--card);
-  border:0;                     /* ✅ stroke 제거 */
+  border:0;                     /* stroke 제거 */
   border-radius:var(--r2);
-  padding:8px 0 0;              /* 박스 느낌 최소화 */
+  padding:8px 0 0;
   margin-top:var(--s3);
 }
 .privacy-consent{display:flex;flex-direction:column;gap:6px}
 .privacy-checkbox{
   display:flex;
-  align-items:center;           /* ✅ y축 완전 중앙정렬 */
+  align-items:center;           /* y축 중앙정렬 */
   gap:8px;
   font-size:14px;
   line-height:1.5;
@@ -174,24 +174,22 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 .privacy-checkbox input{
   accent-color:var(--brand);
-  position:relative; top:2px;   /* ✅ 텍스트보다 약간 아래로 */
+  position:relative; top:1px;   /* 🔧 너무 내려가지 않도록 1px만 보정 */
 }
+
+/* 링크(모달 트리거): 검정 Bold 밑줄, hover 변화 없음 */
 .inline-link{
-  color:var(--text);            /* ✅ 검정 */
-  font-weight:700;              /* ✅ 굵게 */
-  text-decoration:underline;    /* ✅ 밑줄 */
+  color:var(--text);
+  font-weight:700;
+  text-decoration:underline;
   text-underline-offset:2px;
 }
-/* ✅ hover 효과 제거 */
 .inline-link:hover,
-.inline-link:active,
-.privacy-checkbox input:hover,
-.privacy-checkbox label:hover{
-  color:var(--text);
-  background:transparent;
-  text-decoration:underline;
-  filter:none;
-}
+.inline-link:active{ color:var(--text); text-decoration:underline; }
+
+/* 라벨/체크박스 hover 효과 제거 */
+.privacy-checkbox label:hover,
+.privacy-checkbox input:hover{ background:none; filter:none; }
 
 /* =========================
    Modal
