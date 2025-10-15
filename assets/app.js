@@ -7,12 +7,12 @@ const submitBtn = document.getElementById("submit-btn");
 const errName = document.getElementById("err_name");
 const errCompany = document.getElementById("err_company");
 const errEmail = document.getElementById("err_email");
-const errConsent = document.getElementById("err_consent"); // ✅ 추가
-const clearErrors = () => { 
+const errConsent = document.getElementById("err_consent");
+const clearErrors = () => {
   errName.textContent = "";
   errCompany.textContent = "";
   errEmail.textContent = "";
-  if (errConsent) errConsent.textContent = ""; // ✅ 추가
+  if (errConsent) errConsent.textContent = "";
 };
 
 const chipsWrap = document.getElementById("countries_chips");
@@ -57,9 +57,9 @@ function transformOther(otherBtn){
 
   const input = document.createElement("input");
   input.type = "text";
-  input.placeholder = "국가명을 입력해 주세요.";  // ← 플레이스홀더 문구 & 길이 대응
+  input.placeholder = "국가명을 입력해 주세요.";
   input.setAttribute("aria-label","기타 국가 입력");
-  input.inputMode = "text"; // 모바일 키보드 힌트
+  input.inputMode = "text";
 
   const x = document.createElement("button");
   x.type = "button";
@@ -133,7 +133,7 @@ if (form){
     const name = form.name.value.trim();
     const company = form.company.value.trim();
     const email = form.email.value.trim();
-    const consent = form.consent?.checked === true; // ✅ 추가
+    const consent = form.consent?.checked === true;
 
     let firstInvalid=null;
     if (!name){ errName.textContent="이름을 입력해 주세요."; firstInvalid ??= form.name; }
