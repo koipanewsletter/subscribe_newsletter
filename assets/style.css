@@ -208,3 +208,27 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
   .page-head h1{font-size:32px}
   .card{padding:24px}
 }
+
+/* =========================
+   Privacy Consent
+   ========================= */
+.card-lite{
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--r2);
+  padding: 14px;
+  margin-top: var(--s3);
+}
+
+.privacy-title{margin:0 0 6px;font-weight:700;font-size:var(--fs2)}
+.privacy-desc{margin:0 0 8px;color:var(--muted);font-size:var(--fs1)}
+.privacy-list{margin:0 0 10px 16px;padding:0}
+.privacy-list li{margin:4px 0;font-size:var(--fs1);color:#334155}
+
+.privacy-checkbox{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:var(--fs1);line-height:1.5;color:#1f2a37;
+}
+.privacy-checkbox input{
+  margin-top:3px;accent-color:var(--brand);
+}
