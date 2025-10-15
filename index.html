@@ -66,17 +66,13 @@
         <div class="chips" id="countries_chips" role="group" aria-label="관심 국가"></div>
       </div>
 
-      <!-- ✅ 개인정보 수집·이용 동의 (문구 밑줄 클릭 → 모달) -->
+      <!-- ✅ 개인정보 수집·이용 동의 (문구 밑줄 → 모달) -->
       <section class="privacy-consent card-lite" aria-live="polite">
         <div class="privacy-checkbox">
           <input id="consent" name="consent" type="checkbox" />
-          <!-- label은 체크 토글을 위해 유지, 밑줄 링크는 토글 방지 처리 -->
           <label for="consent">
             <span class="req">(필수)</span>
-            <a href="#" id="open-privacy" class="inline-link" role="button" aria-controls="privacy-modal" aria-haspopup="dialog">
-              개인정보 수집 및 이용
-            </a>
-            에 동의합니다.
+            <a href="#" id="open-privacy" class="inline-link" role="button" aria-controls="privacy-modal" aria-haspopup="dialog">개인정보 수집 및 이용</a>에 동의합니다.
           </label>
         </div>
         <p class="error" id="err_consent"></p>
@@ -126,9 +122,9 @@
     window.NEWSLETTER_ENDPOINT =
       "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun/exec";
   </script>
-  <script src="./assets/app.js?v=20251015-inline-link"></script>
+  <script src="./assets/app.js?v=20251015-inline-link-align"></script>
 
-  <!-- 모달 오픈/닫기 & 링크 클릭시 토글 방지 -->
+  <!-- 모달 오픈/닫기 & 링크 클릭시 체크박스 토글 방지 + 포커스 잔상 제거 -->
   <script>
     (function(){
       const openLink = document.getElementById('open-privacy');
@@ -145,7 +141,8 @@
       function closeModal(){
         modal.setAttribute('aria-hidden','true');
         modal.classList.remove('is-open');
-        openLink.focus();
+        // ✅ 포커스 네모 잔상 제거
+        openLink.blur();
         document.body.style.overflow = '';
       }
 
