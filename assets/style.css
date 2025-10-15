@@ -5,7 +5,7 @@
 html,body{height:100%}
 :root{
   --bg:#f7f9fc; --text:#1e2a36; --muted:#5b6b7d;
-  --brand:#5CA1D1;                 /* 브랜드 컬러 */
+  --brand:#5CA1D1;
   --brand-weak:#ebf6fb; --brand-border:#cfe9f6;
   --card:#fff; --card-border:#dde5ef;
   --input-bg:#f9fbff; --input-border:#cfd9e6;
@@ -33,7 +33,7 @@ body{
 .lead{margin:0;color:var(--muted);font-size:var(--fs2)}
 
 /* =========================
-   USP (리뉴얼 카드)
+   USP
    ========================= */
 .usp2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 12px}
 @media(max-width:640px){.usp2{grid-template-columns:1fr}}
@@ -78,69 +78,28 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 .chip-opt:hover{background:#f5f9ff}
 .chip-opt[aria-pressed="true"]{background:#eaf5fb;box-shadow:0 0 0 1px var(--brand-border);color:#196088}
-
-/* 더보기 칩: 연한 실선 */
-.chip-more{
-  background:#f4f7fb;
-  border:1px solid #cfd9e6;
-  color:#3a506b;
-}
+.chip-more{background:#f4f7fb;border:1px solid #cfd9e6;color:#3a506b}
 .chip-more:hover{background:#e9f2f8}
-
-/* ‘기타’ 칩 기본 톤 */
 .chip-other{background:#f4fbff;border:1px solid var(--brand-border);color:#185b7f}
 
-/* =========================
-   기타 인라인 입력(칩 자리 변신)
-   ========================= */
+/* ‘기타’ 칩 변신 영역 */
 .chip-inline-wrap{
-  display:inline-flex;
-  align-items:center;
-  height:34px;
-  border-radius:999px;
-  border:1px solid var(--brand-border);
-  background:#f4fbff;
-  padding:4px 6px 4px 10px;
-  gap:6px;
+  display:inline-flex; align-items:center; height:34px;
+  border-radius:999px; border:1px solid var(--brand-border);
+  background:#f4fbff; padding:4px 6px 4px 10px; gap:6px;
   max-width:min(360px,85vw);
 }
-
 .chip-inline-wrap input{
-  border:0;
-  background:transparent;
-  outline:none;
-  font-size:var(--fs1);           /* placeholder와 동일한 크기 (14px) */
-  line-height:1.2;
-  min-width:120px;
-  flex:1;
+  border:0; background:transparent; outline:none;
+  font-size:var(--fs1); line-height:1.2; min-width:120px; flex:1;
 }
-
 .chip-inline-wrap input::placeholder{
-  color:#9eb8c8;
-  font-size:var(--fs1);           /* placeholder 축소 (14px) */
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  color:#9eb8c8; font-size:var(--fs1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
-
-.chip-inline-wrap input:focus{
-  border:none;
-  outline:none;
-  box-shadow:none;
-}
-
-/* X 버튼 */
+.chip-inline-wrap input:focus{border:none;outline:none;box-shadow:none}
 .chip-inline-wrap .chip-clear{
-  border:0;
-  background:#d6edf7;
-  border-radius:999px;
-  width:22px;
-  height:22px;
-  cursor:pointer;
-  color:#124d6a;
-  font-weight:900;
-  line-height:22px;
-  padding:0;                      /* ✅ 패딩 0으로 정렬 개선 */
+  border:0; background:#d6edf7; border-radius:999px;
+  width:22px; height:22px; cursor:pointer; color:#124d6a; font-weight:900; line-height:22px; padding:0;
 }
 
 /* =========================
@@ -157,7 +116,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .status.ok{color:var(--ok)} .status.err{color:var(--err)}
 
 /* =========================
-   Footer (index & success 공통)
+   Footer
    ========================= */
 .page-foot{margin-top:16px;color:#64748b}
 .page-foot .privacy{margin:0 0 8px;font-size:var(--fs1);line-height:1.45}
@@ -166,18 +125,14 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 @media(min-width:768px){
   .foot-row{flex-direction:row;justify-content:space-between;align-items:center}
 }
-.page-foot{margin-bottom:36px}   /* 하단 여백 확대 */
+.page-foot{margin-bottom:36px}
 
 /* =========================
-   Success Receipt (success.html)
+   Success Receipt
    ========================= */
 .receipt{
-  border-style:solid;
-  border-color:#b5d7f0;
-  background:#f8fbff;
-  margin-top:24px;
-  margin-bottom:24px;
-  padding:20px 20px 16px;
+  border-style:solid; border-color:#b5d7f0; background:#f8fbff;
+  margin-top:24px; margin-bottom:24px; padding:20px 20px 16px;
 }
 .kv{margin:0}
 .kv div{display:grid;grid-template-columns:90px 1fr;gap:10px;padding:8px 4px}
@@ -188,10 +143,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
    Utilities / A11y
    ========================= */
 .hide{display:none}
-.sr-only{
-  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
-  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
-}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
 /* =========================
@@ -210,25 +162,40 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 
 /* =========================
-   Privacy Consent
+   Privacy Consent (compact)
    ========================= */
-.card-lite{
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  border-radius: var(--r2);
-  padding: 14px;
-  margin-top: var(--s3);
+.card-lite{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r2);padding:14px;margin-top:var(--s3)}
+.privacy-consent--compact{padding:12px 14px}
+.privacy-title{margin:0 0 8px;font-weight:700;font-size:var(--fs2)}
+
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.pill{
+  display:inline-flex;align-items:center;
+  padding:4px 8px;border-radius:999px;
+  background:#f1f5f9;color:#334155;font-size:12px;border:1px solid #e2e8f0;
 }
 
-.privacy-title{margin:0 0 6px;font-weight:700;font-size:var(--fs2)}
-.privacy-desc{margin:0 0 8px;color:var(--muted);font-size:var(--fs1)}
-.privacy-list{margin:0 0 10px 16px;padding:0}
-.privacy-list li{margin:4px 0;font-size:var(--fs1);color:#334155}
-
-.privacy-checkbox{
-  display:flex;align-items:flex-start;gap:8px;
-  font-size:var(--fs1);line-height:1.5;color:#1f2a37;
+/* details / summary */
+.privacy-details{margin:0 0 8px}
+.privacy-summary{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 0;font-size:13px;color:#2563eb;cursor:pointer;
 }
-.privacy-checkbox input{
-  margin-top:3px;accent-color:var(--brand);
+.privacy-summary::after{content:"▼";font-size:10px;transform:translateY(1px);opacity:.8}
+.privacy-details[open] .privacy-summary::after{content:"▲"}
+
+.privacy-body{margin-top:4px;padding:8px 10px;border-left:3px solid var(--brand-border);background:#f8fbff;border-radius:8px}
+.privacy-desc{margin:0 0 6px;color:var(--muted);font-size:13px}
+.privacy-list{margin:0;padding-left:16px}
+.privacy-list li{margin:3px 0;font-size:13px;color:#334155}
+
+/* 체크박스 */
+.privacy-checkbox{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:1.5;color:#1f2a37}
+.privacy-checkbox input{margin-top:3px;accent-color:var(--brand)}
+
+/* 반응형 미세 튜닝 */
+@media(max-width:480px){
+  .pill{font-size:11px;padding:3px 7px}
+  .privacy-summary{font-size:12px}
+  .privacy-desc,.privacy-list li{font-size:12px}
 }
