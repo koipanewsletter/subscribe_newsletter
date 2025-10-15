@@ -64,12 +64,18 @@ input[type="text"],input[type="email"]{
   transition:border .15s,box-shadow .15s,background .15s;
 }
 input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(92,161,209,.18)}
-/* 에러 시만 보이게 */
-.error{margin:6px 2px 0;font-size:var(--fs0);color:var(--err)}
-.error:empty{display:none}
 
 /* =========================
-   Chips (countries)
+   Error / Status
+   ========================= */
+.error{margin:6px 2px 0;font-size:var(--fs0);color:var(--err)}
+.error:empty{display:none}
+.status{margin:var(--s2) 2px 0;font-size:var(--fs1);color:#64748b}
+.status:empty{display:none}
+.status.ok{color:var(--ok)} .status.err{color:var(--err)}
+
+/* =========================
+   Chips
    ========================= */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip-opt{
@@ -91,7 +97,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 .chip-inline-wrap .chip-clear{border:0;background:#d6edf7;border-radius:999px;width:22px;height:22px;cursor:pointer;color:#124d6a;font-weight:900;line-height:22px;padding:0}
 
 /* =========================
-   Primary Button / Status
+   Primary Button
    ========================= */
 .primary{
   width:100%;margin-top:var(--s2);padding:14px 16px;font-size:var(--fs2);font-weight:800;
@@ -100,9 +106,6 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 .primary:disabled{opacity:.6;cursor:not-allowed}
 .primary:active{transform:translateY(1px)}
-.status{margin:var(--s2) 2px 0;font-size:var(--fs1);color:#64748b}
-.status:empty{display:none} /* ✅ 빈칸 제거 */
-.status.ok{color:var(--ok)} .status.err{color:var(--err)}
 
 /* =========================
    Footer
@@ -155,9 +158,9 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
    ========================= */
 .card-lite{
   background:var(--card);
-  border:1px solid var(--card-border);
+  border:0;                     /* ✅ stroke 제거 */
   border-radius:var(--r2);
-  padding:12px;
+  padding:8px 0 0;              /* 박스 느낌 최소화 */
   margin-top:var(--s3);
 }
 .privacy-consent{display:flex;flex-direction:column;gap:6px}
@@ -171,14 +174,24 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 .privacy-checkbox input{
   accent-color:var(--brand);
+  position:relative; top:2px;   /* ✅ 텍스트보다 약간 아래로 */
 }
 .inline-link{
   color:var(--text);            /* ✅ 검정 */
-  font-weight:700;              /* ✅ Bold */
+  font-weight:700;              /* ✅ 굵게 */
   text-decoration:underline;    /* ✅ 밑줄 */
   text-underline-offset:2px;
 }
-.inline-link:focus{outline:none} /* 포커스 잔상 최소화 (닫을 때 blur도 함께 처리) */
+/* ✅ hover 효과 제거 */
+.inline-link:hover,
+.inline-link:active,
+.privacy-checkbox input:hover,
+.privacy-checkbox label:hover{
+  color:var(--text);
+  background:transparent;
+  text-decoration:underline;
+  filter:none;
+}
 
 /* =========================
    Modal
