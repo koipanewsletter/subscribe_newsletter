@@ -66,26 +66,19 @@
         <div class="chips" id="countries_chips" role="group" aria-label="관심 국가"></div>
       </div>
 
-      <!-- ✅ 개인정보 수집·이용 동의 (제목/칩 제거, 요약+자세히 보기) -->
-      <section class="privacy-consent card-lite">
-        <details class="privacy-details">
-          <summary class="privacy-summary">📄 개인정보 수집·이용 내용 자세히 보기</summary>
-          <div class="privacy-body">
-            <p class="privacy-desc">
-              한국지식재산보호원 멕시코시티 IP센터는 뉴스레터 발송 및 관련 안내를 위해 다음의 개인정보를 수집·이용합니다.
-            </p>
-            <ul class="privacy-list">
-              <li><strong>수집항목:</strong> 이름, 소속, 이메일, 관심 국가</li>
-              <li><strong>이용목적:</strong> 뉴스레터 발송 및 관련 안내</li>
-              <li><strong>보유기간:</strong> 구독 해지 시까지</li>
-            </ul>
-          </div>
-        </details>
-
-        <label class="privacy-checkbox">
+      <!-- ✅ 개인정보 수집·이용 동의 (문구 밑줄 클릭 → 모달) -->
+      <section class="privacy-consent card-lite" aria-live="polite">
+        <div class="privacy-checkbox">
           <input id="consent" name="consent" type="checkbox" />
-          <span>뉴스레터 발송을 위한 개인정보 수집·이용에 동의합니다. <span class="req">(필수)</span></span>
-        </label>
+          <!-- label은 체크 토글을 위해 유지, 밑줄 링크는 토글 방지 처리 -->
+          <label for="consent">
+            <span class="req">(필수)</span>
+            <a href="#" id="open-privacy" class="inline-link" role="button" aria-controls="privacy-modal" aria-haspopup="dialog">
+              개인정보 수집 및 이용
+            </a>
+            에 동의합니다.
+          </label>
+        </div>
         <p class="error" id="err_consent"></p>
       </section>
       <!-- /개인정보 동의 -->
@@ -106,10 +99,61 @@
     </footer>
   </main>
 
+  <!-- 🔒 개인정보 모달 -->
+  <div class="modal" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title" aria-hidden="true">
+    <div class="modal__backdrop" data-close="1"></div>
+    <div class="modal__dialog" role="document">
+      <div class="modal__header">
+        <h2 id="privacy-modal-title">개인정보 수집 및 이용</h2>
+      </div>
+      <div class="modal__body">
+        <p>한국지식재산보호원 멕시코시티 IP센터는 뉴스레터 발송 및 관련 안내를 위해 다음의 개인정보를 수집·이용합니다.</p>
+        <ul>
+          <li><strong>수집항목:</strong> 이름, 소속, 이메일, 관심 국가</li>
+          <li><strong>이용목적:</strong> 뉴스레터 발송 및 관련 안내</li>
+          <li><strong>보유기간:</strong> 구독 해지 시까지</li>
+        </ul>
+        <p>수집된 정보는 위 목적 이외로 이용되지 않으며, 구독 해지 또는 서비스 종료 시 지체 없이 파기됩니다.</p>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="modal__close" id="close-privacy">닫기</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // Apps Script 엔드포인트
     window.NEWSLETTER_ENDPOINT =
       "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun/exec";
   </script>
-  <script src="./assets/app.js?v=20251015-minimal"></script>
+  <script src="./assets/app.js?v=20251015-inline-link"></script>
+
+  <!-- 모달 오픈/닫기 & 링크 클릭시 토글 방지 -->
+  <script>
+    (function(){
+      const openLink = document.getElementById('open-privacy');
+      const modal    = document.getElementById('privacy-modal');
+      const closeBtn = document.getElementById('close-privacy');
+
+      function openModal(e){
+        if (e){ e.preventDefault(); e.stopPropagation(); } // ✅ 체크박스 토글 방지
+        modal.setAttribute('aria-hidden','false');
+        modal.classList.add('is-open');
+        closeBtn.focus();
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal(){
+        modal.setAttribute('aria-hidden','true');
+        modal.classList.remove('is-open');
+        openLink.focus();
+        document.body.style.overflow = '';
+      }
+
+      openLink?.addEventListener('click', openModal);
+      closeBtn?.addEventListener('click', closeModal);
+      modal?.addEventListener('click', (e)=>{ if(e.target.dataset.close) closeModal(); });
+      window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+    })();
+  </script>
 </body>
 </html>
