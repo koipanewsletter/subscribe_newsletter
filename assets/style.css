@@ -5,8 +5,7 @@
 html,body{height:100%}
 :root{
   --bg:#f7f9fc; --text:#1e2a36; --muted:#5b6b7d;
-  --brand:#5CA1D1;
-  --brand-weak:#ebf6fb; --brand-border:#cfe9f6;
+  --brand:#5CA1D1; --brand-weak:#ebf6fb; --brand-border:#cfe9f6;
   --card:#fff; --card-border:#dde5ef;
   --input-bg:#f9fbff; --input-border:#cfd9e6;
   --ok:#16a34a; --err:#d6263c;
@@ -65,7 +64,9 @@ input[type="text"],input[type="email"]{
   transition:border .15s,box-shadow .15s,background .15s;
 }
 input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(92,161,209,.18)}
-.error{min-height:16px;margin:6px 2px 0;font-size:var(--fs0);color:var(--err)}
+/* 에러 공백 제거 */
+.error{margin:6px 2px 0;font-size:var(--fs0);color:var(--err)}
+.error:empty{display:none}
 
 /* =========================
    Chips (countries)
@@ -162,40 +163,42 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 
 /* =========================
-   Privacy Consent (compact)
+   Privacy Consent (compact / dedup)
    ========================= */
-.card-lite{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r2);padding:14px;margin-top:var(--s3)}
-.privacy-consent--compact{padding:12px 14px}
-.privacy-title{margin:0 0 8px;font-weight:700;font-size:var(--fs2)}
+.card-lite{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r2);padding:12px;margin-top:var(--s3)}
+.privacy-consent{ --gap:10px }
+.privacy-head{display:flex;flex-direction:column;gap:var(--gap)}
+.privacy-title{margin:0;font-weight:700;font-size:var(--fs2)}
 
-.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+/* summary 영역을 한 줄로 타이트하게 */
+.privacy-details{margin:0}
+.privacy-summary{
+  display:flex; align-items:center; gap:8px;
+  padding:0; list-style:none; cursor:pointer; user-select:none;
+}
+.privacy-summary::-webkit-details-marker{display:none}
+.privacy-summary .more{font-size:12px;color:#2563eb;margin-left:auto}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
 .pill{
   display:inline-flex;align-items:center;
-  padding:4px 8px;border-radius:999px;
+  padding:3px 8px;border-radius:999px;
   background:#f1f5f9;color:#334155;font-size:12px;border:1px solid #e2e8f0;
 }
 
-/* details / summary */
-.privacy-details{margin:0 0 8px}
-.privacy-summary{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:4px 0;font-size:13px;color:#2563eb;cursor:pointer;
-}
-.privacy-summary::after{content:"▼";font-size:10px;transform:translateY(1px);opacity:.8}
-.privacy-details[open] .privacy-summary::after{content:"▲"}
-
-.privacy-body{margin-top:4px;padding:8px 10px;border-left:3px solid var(--brand-border);background:#f8fbff;border-radius:8px}
+/* 펼침 내용 */
+.privacy-body{margin-top:8px;padding:8px 10px;border-left:3px solid var(--brand-border);background:#f8fbff;border-radius:8px}
 .privacy-desc{margin:0 0 6px;color:var(--muted);font-size:13px}
 .privacy-list{margin:0;padding-left:16px}
 .privacy-list li{margin:3px 0;font-size:13px;color:#334155}
+.privacy-list strong{margin-right:6px}
 
-/* 체크박스 */
-.privacy-checkbox{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:1.5;color:#1f2a37}
+/* 체크박스: 간결 문구 */
+.privacy-checkbox{display:flex;align-items:flex-start;gap:8px;margin-top:10px;font-size:14px;line-height:1.5;color:#1f2a37}
 .privacy-checkbox input{margin-top:3px;accent-color:var(--brand)}
 
 /* 반응형 미세 튜닝 */
 @media(max-width:480px){
-  .pill{font-size:11px;padding:3px 7px}
-  .privacy-summary{font-size:12px}
+  .pill{font-size:11px;padding:2px 7px}
   .privacy-desc,.privacy-list li{font-size:12px}
+  .privacy-checkbox{font-size:13px}
 }
