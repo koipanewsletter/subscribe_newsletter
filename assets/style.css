@@ -174,7 +174,7 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 .privacy-checkbox input{
   accent-color:var(--brand);
-  position:relative; top:1px;   /* 🔧 너무 내려가지 않도록 1px만 보정 */
+  position:relative; top:-1px;   /* 🔧 너무 내려가지 않도록 1px만 보정 */
 }
 
 /* 링크(모달 트리거): 검정 Bold 밑줄, hover 변화 없음 */
