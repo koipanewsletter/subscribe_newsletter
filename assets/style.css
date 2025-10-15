@@ -64,6 +64,7 @@ input[type="text"],input[type="email"]{
   transition:border .15s,box-shadow .15s,background .15s;
 }
 input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(92,161,209,.18)}
+/* 에러 시만 보이게 */
 .error{margin:6px 2px 0;font-size:var(--fs0);color:var(--err)}
 .error:empty{display:none}
 
@@ -99,7 +100,8 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 .primary:disabled{opacity:.6;cursor:not-allowed}
 .primary:active{transform:translateY(1px)}
-.status{min-height:22px;margin:var(--s2) 2px 0;font-size:var(--fs1);color:#64748b}
+.status{margin:var(--s2) 2px 0;font-size:var(--fs1);color:#64748b}
+.status:empty{display:none} /* ✅ 빈칸 제거 */
 .status.ok{color:var(--ok)} .status.err{color:var(--err)}
 
 /* =========================
@@ -160,15 +162,23 @@ input:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(
 }
 .privacy-consent{display:flex;flex-direction:column;gap:6px}
 .privacy-checkbox{
-  display:flex; align-items:baseline; gap:8px;
-  font-size:14px; line-height:1.5; color:#1f2a37;
+  display:flex;
+  align-items:center;           /* ✅ y축 완전 중앙정렬 */
+  gap:8px;
+  font-size:14px;
+  line-height:1.5;
+  color:#1f2a37;
 }
-.privacy-checkbox input{accent-color:var(--brand)}
+.privacy-checkbox input{
+  accent-color:var(--brand);
+}
 .inline-link{
-  color:#2563eb;
-  text-decoration:underline;
+  color:var(--text);            /* ✅ 검정 */
+  font-weight:700;              /* ✅ Bold */
+  text-decoration:underline;    /* ✅ 밑줄 */
+  text-underline-offset:2px;
 }
-.inline-link:focus{outline:2px solid rgba(37,99,235,.35);outline-offset:2px}
+.inline-link:focus{outline:none} /* 포커스 잔상 최소화 (닫을 때 blur도 함께 처리) */
 
 /* =========================
    Modal
