@@ -141,7 +141,7 @@ if (form){
     if (!email){ errEmail.textContent="이메일을 입력해 주세요."; firstInvalid ??= form.email; }
     else if (!isValidEmail(email)){ errEmail.textContent="올바른 이메일 주소를 입력해 주세요."; firstInvalid ??= form.email; }
     if (!consent){
-      if (errConsent) errConsent.textContent = "뉴스레터 안내를 위해 개인정보 수집·이용에 동의해 주세요.";
+      if (errConsent) errConsent.textContent = "개인정보 수집·이용에 동의해 주세요.";
       firstInvalid ??= form.consent;
     }
     if (firstInvalid){ firstInvalid.focus(); firstInvalid.scrollIntoView({behavior:"smooth",block:"center"}); return; }
