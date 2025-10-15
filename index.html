@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>『요즘 중남미 IP』 구독</title>
 
-  <!-- Favicon (모든 페이지 공통) -->
+  <!-- Favicon (공통) -->
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon.png" />
   <link rel="shortcut icon" href="./assets/favicon.png" />
@@ -66,38 +66,25 @@
         <div class="chips" id="countries_chips" role="group" aria-label="관심 국가"></div>
       </div>
 
-      <!-- ✅ 개인정보 동의 (콤팩트, 중복 제거) -->
-      <section class="privacy-consent card-lite" aria-labelledby="privacy_title">
-        <div class="privacy-head">
-          <p id="privacy_title" class="privacy-title">📄 개인정보 수집·이용 <span class="req">(필수)</span></p>
-          <!-- 요약 배지: 접힘 상태 핵심만 노출 -->
-          <details class="privacy-details">
-            <summary class="privacy-summary" aria-label="개인정보 수집·이용 세부 내용 펼치기">
-              <span class="pills">
-                <span class="pill">수집항목: 이름·소속·이메일·관심국가</span>
-                <span class="pill">목적: 뉴스레터 발송</span>
-                <span class="pill">보유: 구독 해지 시</span>
-              </span>
-              <span class="more">자세히 보기</span>
-            </summary>
-            <!-- 펼침 내용: 문장+항목(칩과 중복되지 않도록 여기에서만 상세 노출) -->
-            <div class="privacy-body">
-              <p class="privacy-desc">
-                한국지식재산보호원 멕시코시티 IP센터는 뉴스레터 발송 및 관련 안내를 위해 다음 정보를 수집·이용합니다.
-              </p>
-              <ul class="privacy-list">
-                <li><strong>수집항목</strong> 이름, 소속, 이메일, 관심 국가</li>
-                <li><strong>이용목적</strong> 뉴스레터 발송 및 관련 안내</li>
-                <li><strong>보유기간</strong> 구독 해지 시까지</li>
-              </ul>
-            </div>
-          </details>
-        </div>
+      <!-- ✅ 개인정보 수집·이용 동의 (제목/칩 제거, 요약+자세히 보기) -->
+      <section class="privacy-consent card-lite">
+        <details class="privacy-details">
+          <summary class="privacy-summary">📄 개인정보 수집·이용 내용 자세히 보기</summary>
+          <div class="privacy-body">
+            <p class="privacy-desc">
+              한국지식재산보호원 멕시코시티 IP센터는 뉴스레터 발송 및 관련 안내를 위해 다음의 개인정보를 수집·이용합니다.
+            </p>
+            <ul class="privacy-list">
+              <li><strong>수집항목:</strong> 이름, 소속, 이메일, 관심 국가</li>
+              <li><strong>이용목적:</strong> 뉴스레터 발송 및 관련 안내</li>
+              <li><strong>보유기간:</strong> 구독 해지 시까지</li>
+            </ul>
+          </div>
+        </details>
 
-        <!-- 체크박스 문구는 간결하게 (타이틀과 중복 제거) -->
-        <label class="privacy-checkbox" aria-describedby="privacy_title">
+        <label class="privacy-checkbox">
           <input id="consent" name="consent" type="checkbox" />
-          <span>위 내용에 동의합니다.</span>
+          <span>뉴스레터 발송을 위한 개인정보 수집·이용에 동의합니다. <span class="req">(필수)</span></span>
         </label>
         <p class="error" id="err_consent"></p>
       </section>
@@ -123,6 +110,6 @@
     window.NEWSLETTER_ENDPOINT =
       "https://script.google.com/macros/s/AKfycbwI0A-B819UVyiscv3KtxxF8BkuEATODuUJ2ZVFwMIgXDHsdWEEnGmCeLbY9mMr4Nun/exec";
   </script>
-  <script src="./assets/app.js?v=20251015-compact2"></script>
+  <script src="./assets/app.js?v=20251015-minimal"></script>
 </body>
 </html>
